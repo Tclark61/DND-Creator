@@ -27,7 +27,7 @@ class Character
     public static String[] variables = {"Name", "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", 
     "Charisma", "Class", "Gender","Level", "Experience"};
     public static String[] classes = {"Peasant", "Fighter","Wizard", "Rogue","Cleric","Paladin","Warlock"};
-    public static int[] healthDice = {3,10,6,8,8,10,6};
+    public static int[] healthDice = {3,10,6,8,8,10,6}; //What dice is used to calculate health for a specific class
     public static int[] expThreshhold = {0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,
     165000, 195000, 225000, 265000, 305000, 355000}; //The set experience threshholds for dnd 5e. They do not follow a formula, which was pretty annoying
     
