@@ -244,8 +244,8 @@ class Character
 class CharacterCreate
 {
 
-    public static String workingCommands = "Help, Quit, Get [Variable], Set [Variable] [Value], Variables, Roll Stats, Roll [Number of Sides on Die], Roll [Stat], New Character, New Character [Name], List";
-    public static String workingVariables = "Name, Str, Dex, Con, Wis, Intl, Cha";
+    public static String workingCommands = "Help, Quit, Get [Variable], Set [Variable] [Value], Variables, Roll Stats, Roll [Number of Sides on Die], Roll [Stat]," + "New Character, New Character [Name], List";
+    public static String workingVariables = "Name, Str, Dex, Con, Wis, Intl, Cha, Class, Level, Exp";
     
     public static boolean isInteger(String str) {
     if (str == null) {
