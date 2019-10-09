@@ -12,6 +12,8 @@ class Character
 {
     public boolean current;
     private String name;
+    private String race;
+    private String gender;
     private String charClass;
     private int level;
     public int maxHealth;
@@ -137,6 +139,16 @@ class Character
     {
         this.experience = experience + newExp;
         this.level = calculateLevel();
+    }
+    
+    public String getGender()
+    {
+        return gender;
+    }
+    
+    public void setGender(String newGender)
+    {
+        this.gender = newGender;
     }
     
     public void setCurrent(boolean curr)
@@ -308,7 +320,7 @@ class CharacterCreate
                 System.out.println("Current Party Members:");
                 for(int i = 0; i < roster.size(); i++)
                 {
-                    System.out.println(roster.get(i).getName());
+                    System.out.println(roster.get(i).getName() + ", the level " + roster.get(i).getLevel() + " " + roster.get(i).getCharClass());
                 }
                 break;
             case "switch":
@@ -347,6 +359,7 @@ class CharacterCreate
                 {
                     System.out.println("Unable to switch, please specify the name of character to switch to.");
                 }
+                break;
             case "new":
                 if(words[1].equalsIgnoreCase("character") && words.length == 2){
                     Character backup = new Character();
@@ -409,6 +422,12 @@ class CharacterCreate
                 if(words.length == 2)
                 {
                     switch(words[1].toLowerCase()){
+                        case "gender":
+                            System.out.println(player.getName() + "'s gender is " + player.getGender());
+                            break;
+                        case "class":
+                            System.out.println(player.getName() + "'s class is " + player.getCharClass());
+                            break;
                         case "level":
                             System.out.println(player.getName() + "'s level is " + player.getLevel());
                             break;
@@ -450,9 +469,13 @@ class CharacterCreate
                 break;
             case "set":
                 //This only goes off if you can parse the second word or if second word is name/class
-                if(words.length == 3 && (isInteger(words[2]) || words[1].equalsIgnoreCase("name") || words[1].equalsIgnoreCase("class")))
+                if(words.length == 3 && (isInteger(words[2]) || words[1].equalsIgnoreCase("name") || words[1].equalsIgnoreCase("class") || words[1].equalsIgnoreCase("gender")))
                 {
                     switch(words[1].toLowerCase()){
+                        case "gender":
+                            player.setGender(words[2]);
+                            System.out.println(player.getName() + " is a " + player.getGender() + ", got it!"); //I'm walking into this being so easily abusable by letting any string be added here.
+                            break;
                         case "class":
                             player.setClass(words[2]);
                             System.out.println(player.getName() + " is class " + player.getCharClass() + " and has " + player.getMaxHealth() + " health.");
