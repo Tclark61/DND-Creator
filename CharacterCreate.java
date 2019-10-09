@@ -1,3 +1,8 @@
+//Character Creation for DND
+//Author: Tyler Clark
+//Created in October 2019
+
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,7 +14,8 @@ class Character
     private String name;
     private String charClass;
     private int level;
-    public int health;
+    public int maxHealth;
+    public int currentHealth;
     private int experience;
     private int str;
     private int dex;
@@ -38,14 +44,17 @@ class Character
     
     public void changeHealth(int change)
     {
-        
+        if(charClass == null)
+        {
+            this.charClass = classes[0];
+        }
         for(int i = 0; i < classes.length; i++)
         {
             if(charClass.equalsIgnoreCase(classes[i]))
             {
                 for(int j = 0; j < change; j++)
                 {
-                    this.health = health + CharacterCreate.roll(healthDice[i],con);
+                    this.maxHealth = maxHealth + CharacterCreate.roll(healthDice[i],con);
                 }
                 break;
             }
@@ -77,7 +86,7 @@ class Character
     
     public void setLevel(int newLevel)
     {
-        this.experience = expThreshhold[newLevel + 1];
+        this.experience = expThreshhold[newLevel - 1];
         this.level = newLevel;
     }
     
@@ -314,6 +323,7 @@ class CharacterCreate
                     answer = scanner.nextLine();
                     if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("YES")){
                         backup.setName(names[random.nextInt(names.length)]); //Set the name equal to a random number in between 0 and (length of names.txt - 1)
+                        backup.setLevel(1);
                         System.out.println("This character's name will be " + backup.getName());
                         backup.rollEverything();
                         System.out.println("Rolling " + backup.getName() + "'s stats....");
@@ -406,9 +416,12 @@ class CharacterCreate
                 }
                 break;
             case "set":
-                if(words.length == 3 && (isInteger(words[2]) || words[1].equalsIgnoreCase("name"))) //This only goes off if you can parse the second word or if second word is name
+                //This only goes off if you can parse the second word or if second word is name/class
+                if(words.length == 3 && (isInteger(words[2]) || words[1].equalsIgnoreCase("name") || words[1].equalsIgnoreCase("class")))
                 {
                     switch(words[1].toLowerCase()){
+                        case "class":
+                            
                         case "level":
                             player.setLevel(Integer.parseInt(words[2]));
                             System.out.println(player.getName() + " is now level " + player.getLevel() + "!");
