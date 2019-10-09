@@ -31,6 +31,8 @@ class Character
     public static int[] expThreshhold = {0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,
     165000, 195000, 225000, 265000, 305000, 355000}; //The set experience threshholds for dnd 5e. They do not follow a formula, which was pretty annoying
     
+    
+    
     private void refresh()
     {
         stats = new int[6];
@@ -42,6 +44,35 @@ class Character
         stats[5] = cha;
     }
     
+    public String getCharClass()
+    {
+        return charClass;
+    }
+    
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+    
+    public void setClass(String newClass)
+    {
+        boolean foundClass = false;
+        for(int i = 0; i < classes.length; i++)
+        {
+            if(newClass.equalsIgnoreCase(classes[i]))
+            {
+                foundClass = true;
+                charClass = classes[i];
+                this.maxHealth = 0;
+                changeHealth(level);
+            }
+        }
+        if(!foundClass)
+        {
+            System.out.println("No class with that name could be found. Class is not changed.");
+        }
+        
+    }
     public void changeHealth(int change)
     {
         if(charClass == null)
@@ -52,9 +83,10 @@ class Character
         {
             if(charClass.equalsIgnoreCase(classes[i]))
             {
-                for(int j = 0; j < change; j++)
+                this.maxHealth = Math.max((healthDice[i] + (con/2) - 5),5); //For the sake of my mental health, set minimum level 1 health to 5
+                for(int j = 1; j < change; j++)
                 {
-                    this.maxHealth = maxHealth + CharacterCreate.roll(healthDice[i],con);
+                    this.maxHealth = maxHealth + Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
                 }
                 break;
             }
@@ -69,13 +101,13 @@ class Character
     
     public int calculateLevel()
     {
-        for(int i = 1; i < 21; i++)
+        for(int i = 0; i < 20; i++)
         {
             if(experience < expThreshhold[i])
             {
-                if((i - 1)!= level)
-                    changeHealth((i - 1) - level);
-                return i - 1;
+                if((i + 1)!= level)
+                    changeHealth((i + 1) - level);
+                return i + 1;
             }
         }
         if(level != 20)
@@ -324,6 +356,7 @@ class CharacterCreate
                     if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("YES")){
                         backup.setName(names[random.nextInt(names.length)]); //Set the name equal to a random number in between 0 and (length of names.txt - 1)
                         backup.setLevel(1);
+                        backup.setClass("Peasant");
                         System.out.println("This character's name will be " + backup.getName());
                         backup.rollEverything();
                         System.out.println("Rolling " + backup.getName() + "'s stats....");
@@ -392,7 +425,7 @@ class CharacterCreate
                             System.out.println("Current character dexterity is " + player.getDex() + ".");
                             break;
                         case "con":
-                            System.out.println("Current character name is " + player.getStr() + ".");
+                            System.out.println("Current character constitution is " + player.getCon() + ".");
                             break; 
                         case "wis":
                             System.out.println("Current character wisdom is " + player.getWis() + ".");
@@ -421,7 +454,9 @@ class CharacterCreate
                 {
                     switch(words[1].toLowerCase()){
                         case "class":
-                            
+                            player.setClass(words[2]);
+                            System.out.println(player.getName() + " is class " + player.getCharClass() + " and has " + player.getMaxHealth() + " health.");
+                            break;
                         case "level":
                             player.setLevel(Integer.parseInt(words[2]));
                             System.out.println(player.getName() + " is now level " + player.getLevel() + "!");
@@ -443,8 +478,8 @@ class CharacterCreate
                             System.out.println("Current character dexterity set to " + player.getDex() + ".");
                             break;
                         case "con":
-                            player.setStr(Integer.parseInt(words[2]));
-                            System.out.println("Current character name set to " + player.getStr() + ".");
+                            player.setCon(Integer.parseInt(words[2]));
+                            System.out.println("Current character constitution set to " + player.getCon() + ".");
                             break; 
                         case "wis":
                             player.setWis(Integer.parseInt(words[2]));
