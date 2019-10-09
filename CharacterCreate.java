@@ -234,7 +234,7 @@ class Character
         b = CharacterCreate.roll(6, 10);
         c = CharacterCreate.roll(6, 10);
         d = CharacterCreate.roll(6, 10);
-        int min = Math.min(Math.min(a,b),Math.min(a,b)); //We don't know which variable out of a, b, c, d is the biggest but we can find the minimum value
+        int min = Math.min(Math.min(a,b),Math.min(c,d)); //We don't know which variable out of a, b, c, d is the biggest but we can find the minimum value
         stat = a + b + c + d - min; //In order to get rid of the lowest value, add all of them up then remove the lowest value
         return stat;
     }
