@@ -26,15 +26,23 @@ class Character
     private int wis;
     private int cha;
     public int[] stats;
+    public static String[] proficiencies = {"Athletics", "Acrobatics", "Sleight of Hand", "Stealth", 
+    "Arcana", "History","Investigation","Nature",
+    "Religion","Animal Handling","Insight","Medicine","Perception",
+    "Survival","Deception","Intimidation","Performance","Persuasion"};
+    public int[] bonuses;
     public static String[] variables = {"Name", "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", 
-    "Charisma", "Class", "Gender","Level", "Experience"};
+    "Charisma", "Class", "Gender","Level", "Experience", "Proficiencies"};
     public static String[] classes = {"Peasant", "Fighter","Wizard", "Rogue","Cleric","Paladin","Warlock"};
     public static int[] healthDice = {3,10,6,8,8,10,6}; //Dice used to calculate Health for a specific class.
     public static int[] expThreshhold = {0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,
     165000, 195000, 225000, 265000, 305000, 355000}; //The set experience threshholds for dnd 5e. They do not follow a formula, which was pretty annoying
     
     
-    
+    public Character() //Happens on initialization of every character
+    {
+        bonuses = new int[proficiencies.length];
+    }
     private void refresh()
     {
         stats = new int[6];
@@ -56,6 +64,10 @@ class Character
         return maxHealth;
     }
     
+    public void setSkill(int point)
+    {
+        this.bonuses[point] = 1;
+    }
     public void setClass(String newClass)
     {
         boolean foundClass = false;
