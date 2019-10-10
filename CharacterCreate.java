@@ -67,6 +67,7 @@ class Character
                 charClass = classes[i];
                 this.maxHealth = 0;
                 changeHealth(level);
+                this.currentHealth = maxHealth;
             }
         }
         if(!foundClass)
@@ -77,6 +78,7 @@ class Character
     }
     public void changeHealth(int change)
     {
+        System.out.println("Change = " + change);
         if(charClass == null)
         {
             this.charClass = classes[0];
@@ -85,10 +87,17 @@ class Character
         {
             if(charClass.equalsIgnoreCase(classes[i]))
             {
-                this.maxHealth = Math.max((healthDice[i] + (con/2) - 5),5); //For the sake of my mental health, set minimum level 1 health to 5
-                for(int j = 1; j < change; j++)
+                if(level == 0 || level == 1)
                 {
-                    this.maxHealth = maxHealth + Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
+                    this.maxHealth = Math.max((healthDice[i] + (con/2) - 5),5); //For the sake of my mental health, set minimum level 1 health to 5
+                }
+                else
+                {
+                    for(int j = 0; j < change; j++)
+                    {
+                        System.out.println(maxHealth);
+                        this.maxHealth = maxHealth + Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
+                    }
                 }
                 break;
             }
@@ -113,15 +122,21 @@ class Character
             }
         }
         if(level != 20)
-            changeHealth(20 - level);
+            changeHealth(20 - level); //I've stared at health gains so long that I'm not even sure this is correct. But it works. I must be psyching myself out.
         return 20;
         
     }
     
     public void setLevel(int newLevel)
     {
+        int oldLevel = level;
+        if(newLevel > 20)
+            newLevel = 20;
+        if(newLevel < 1)
+            newLevel = 1;
         this.experience = expThreshhold[newLevel - 1];
         this.level = newLevel;
+        changeHealth(newLevel - oldLevel);
     }
     
     public int getExp()
@@ -256,7 +271,8 @@ class Character
 class CharacterCreate
 {
 
-    public static String workingCommands = "Help, Quit, Get [Variable], Set [Variable] [Value], Variables, Roll Stats, Roll [Number of Sides on Die], Roll [Stat]," + "New Character, New Character [Name], List";
+    public static String workingCommands = "Help, Quit, Get [Variable], Set [Variable] [Value], Variables, Roll Stats, Roll [Number of Sides on Die], Roll [Stat]," 
+    + "New Character, New Character [Name], List, Give Exp [Value]";
     public static String workingVariables = "Name, Str, Dex, Con, Wis, Intl, Cha, Class, Level, Exp";
     
     public static boolean isInteger(String str) {
@@ -316,6 +332,22 @@ class CharacterCreate
         
         switch (words[0].toLowerCase()){ //Check what was in the first word given (not case sensitive)
             
+            case "give":
+                if(words.length == 3)
+                {
+                    if(words[1].equalsIgnoreCase("exp"))
+                    {
+                        player.gainExp(Integer.parseInt(words[2]));
+                        System.out.println(player.getName() + " has " + player.getExp() + " and is level " + player.getLevel() + "!");
+                    }
+                }
+                else
+                {
+                    System.out.println("Could not understand. Did you mean 'Give exp'? ");
+                }
+                break;
+                
+            
             case "list":
                 System.out.println("Current Party Members:");
                 for(int i = 0; i < roster.size(); i++)
@@ -361,12 +393,14 @@ class CharacterCreate
                 }
                 break;
             case "new":
-                if(words[1].equalsIgnoreCase("character") && words.length == 2){
+                if(words[1].equalsIgnoreCase("character") && words.length == 2)
+                {
                     Character backup = new Character();
                     System.out.println("Would you like a pre-made character? If not, character will be blank. Y/N");
                     String answer = new String();
                     answer = scanner.nextLine();
-                    if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("YES")){
+                    if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("YES"))
+                    {
                         backup.setName(names[random.nextInt(names.length)]); //Set the name equal to a random number in between 0 and (length of names.txt - 1)
                         backup.setLevel(1);
                         backup.setClass("Peasant");
@@ -375,14 +409,14 @@ class CharacterCreate
                         System.out.println("Rolling " + backup.getName() + "'s stats....");
                         for(int i = 0; i < 6; i++)
                         {
-                        System.out.println(backup.variables[i + 1] + ": " + backup.stats[i]); //Prints out the name of stats and their values as located in the Char class
+                            System.out.println(backup.variables[i + 1] + ": " + backup.stats[i]); //Prints out the name of stats and their values as located in the Char class
                         }
                     }
-                player.setCurrent(false); //Make the current player no longer current
-                backup.setCurrent(true); //Set the newly created character to current instead
-                roster.add(backup);
-                System.out.println(backup.getName() + " successfully added to the party!");
-                break;
+                    player.setCurrent(false); //Make the current player no longer current
+                    backup.setCurrent(true); //Set the newly created character to current instead
+                    roster.add(backup);
+                    System.out.println(backup.getName() + " successfully added to the party!");
+                    break;
                 }
                 if(words[1].equalsIgnoreCase("character") && words.length == 3){
                     Character backup = new Character();
@@ -404,7 +438,8 @@ class CharacterCreate
                     System.out.println(backup.getName() + " successfully added to the party!");
                     break;
                 }
-                else{
+                else
+                {
                     System.out.println("Unable to understand prompt. Are you trying to say 'new character'?");
                 }
                 break;
@@ -422,6 +457,9 @@ class CharacterCreate
                 if(words.length == 2)
                 {
                     switch(words[1].toLowerCase()){
+                        case "health":
+                            System.out.println(player.getName() + "'s current health is " + player.getMaxHealth());
+                            break;
                         case "gender":
                             System.out.println(player.getName() + "'s gender is " + player.getGender());
                             break;
@@ -627,6 +665,9 @@ class CharacterCreate
         }
         names = nameLine.split(", "); //This splits the single line into multiple smaller strings (individual names) by splitting it at every comma followed by a space
         first.setCurrent(true);
+        //Give first character a random name
+        //Give it 10 in all stats
+        //Set it to level 1
         ArrayList<Character> roster = new ArrayList<Character>(); //New ArrayList of characters, ArrayLists are much better than arrays at adding a continuous amount of entries
         roster.add(first); //Add character to roster
         String line = new String();
