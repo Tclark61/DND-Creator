@@ -25,7 +25,10 @@ class Character
     private int intl;
     private int wis;
     private int cha;
+    private int profBonus;
     public int[] stats;
+    private static int[] profBonusChart = {1,5,9,13,17};
+    public static int[] proficiencyType = {1,2,2,2,4,4,4,4,4,5,5,5,5,5,6,6,6,6};
     public static String[] proficiencies = {"Athletics", "Acrobatics", "Sleight of Hand", "Stealth", 
     "Arcana", "History","Investigation","Nature",
     "Religion","Animal Handling","Insight","Medicine","Perception",
@@ -43,6 +46,23 @@ class Character
     {
         bonuses = new int[proficiencies.length];
     }
+    
+    public int getProfBonus()
+    {
+        
+        for(int i = 0; i < profBonusChart.length; i++)
+        {
+            if(profBonusChart[i] > level)
+            {
+                if(i == 0)
+                    this.profBonus = 0;
+                else
+                    this.profBonus = i + 1; //Bonus starts at 2 and increases by 1 at 5,9,13,17
+            }
+        }
+        return profBonus;
+    }
+    
     private void refresh()
     {
         stats = new int[6];
@@ -54,6 +74,7 @@ class Character
         stats[5] = cha;
     }
     
+    
     public String getCharClass()
     {
         return charClass;
@@ -64,10 +85,11 @@ class Character
         return maxHealth;
     }
     
-    public void setSkill(int point)
+    public void setSkill(int prof, int point)
     {
-        this.bonuses[point] = 1;
+        this.bonuses[prof] = point;
     }
+    
     public void setClass(String newClass)
     {
         boolean foundClass = false;
@@ -90,7 +112,6 @@ class Character
     }
     public void changeHealth(int change)
     {
-        System.out.println("Change = " + change);
         if(charClass == null)
         {
             this.charClass = classes[0];
@@ -677,9 +698,6 @@ class CharacterCreate
         }
         names = nameLine.split(", "); //This splits the single line into multiple smaller strings (individual names) by splitting it at every comma followed by a space
         first.setCurrent(true);
-        //Give first character a random name
-        //Give it 10 in all stats
-        //Set it to level 1
         ArrayList<Character> roster = new ArrayList<Character>(); //New ArrayList of characters, ArrayLists are much better than arrays at adding a continuous amount of entries
         roster.add(first); //Add character to roster
         String line = new String();
