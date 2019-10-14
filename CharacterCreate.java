@@ -755,8 +755,7 @@ class CharacterCreate
         String line = new String();
         Random random = new Random();
         first.calculateLevel();
-        //set all stats to 10
-        first.setStr(10);
+        first.setStr(10);//set all stats to 10
         first.setDex(10);
         first.setCon(10);
         first.setIntl(10);
