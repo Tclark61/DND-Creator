@@ -55,12 +55,34 @@ class Character
             if(profBonusChart[i] > level)
             {
                 if(i == 0)
+                {
                     this.profBonus = 0;
+                    return profBonus;
+                }
                 else
+                {
                     this.profBonus = i + 1; //Bonus starts at 2 and increases by 1 at 5,9,13,17
+                    return profBonus;
+                }
+                
             }
         }
+        this.profBonus = 6;
+        
         return profBonus;
+    }
+    
+    public int getModfier(String skill)
+    {
+        getProfBonus();
+        refresh(); //Makes sure there wasn't change to stats. Shouldn't be necessary given how rarely stats change, but reassurance is worth computation
+        for(int i = 0; i < proficiencies.length; i++)
+        {
+            if(proficiencies[i].equalsIgnoreCase(skill))
+                return ((bonuses[i]*profBonus) + (stats[proficiencyType[i] - 1])/2 - 5);
+        }
+        System.out.println("This is not a known skill, modifier is 0.");
+        return -100;
     }
     
     private void refresh()
@@ -85,9 +107,17 @@ class Character
         return maxHealth;
     }
     
-    public void setSkill(int prof, int point)
+    public boolean setSkill(String prof)
     {
-        this.bonuses[prof] = point;
+        for(int i = 0; i < proficiencies.length; i++)
+        {
+            if(proficiencies[i].equalsIgnoreCase(prof))
+            {
+                this.bonuses[i] = 1;
+                return true;
+            }
+        }
+        return false;
     }
     
     public void setClass(String newClass)
@@ -128,7 +158,6 @@ class Character
                 {
                     for(int j = 0; j < change; j++)
                     {
-                        System.out.println(maxHealth);
                         this.maxHealth = maxHealth + Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
                     }
                 }
@@ -350,6 +379,7 @@ class CharacterCreate
     {
         boolean quit = false, found = false;
         int buffer = 0;
+        int test;
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
         Character player = findCurrent(roster); //Find the current character to work on
@@ -364,6 +394,13 @@ class CharacterCreate
         }
         
         switch (words[0].toLowerCase()){ //Check what was in the first word given (not case sensitive)
+            
+            case "proficiencies":
+                for(int i = 0; i < player.proficiencies.length; i++)
+                {
+                    System.out.println(player.proficiencies[i] + ": " + player.getModfier(player.proficiencies[i]));
+                }
+                break;
             
             case "give":
                 if(words.length == 3)
@@ -426,7 +463,7 @@ class CharacterCreate
                 }
                 break;
             case "new":
-                if(words[1].equalsIgnoreCase("character") && words.length == 2)
+                if((words[1].equalsIgnoreCase("character") || words[1].equalsIgnoreCase("char")) && words.length == 2)
                 {
                     Character backup = new Character();
                     System.out.println("Would you like a pre-made character? If not, character will be blank. Y/N");
@@ -487,9 +524,16 @@ class CharacterCreate
                 quit = true;
                 break;
             case "get":
-                if(words.length == 2)
+                if(words.length == 2 || (words[1].equalsIgnoreCase("skill") && words.length == 3))
                 {
                     switch(words[1].toLowerCase()){
+                        case "skill":
+                            test = player.getModfier(words[2]);
+                            if(test != -100)
+                            {
+                                System.out.println(player.getName() + "'s proficiency in " + words[2] + " is " + test);
+                            }
+                            break;
                         case "health":
                             System.out.println(player.getName() + "'s current health is " + player.getMaxHealth());
                             break;
@@ -594,6 +638,13 @@ class CharacterCreate
                         
                     }
                 }
+                else if (words[1].equalsIgnoreCase("proficiency") && words.length == 3)
+                {
+                    if(player.setSkill(words[2]))
+                                System.out.println(player.getName() + " is now proficient in " + words[2] + "!");
+                            else
+                                System.out.println("Could not find that proficiency. Try typing 'proficiency' for a list of possible skills.");
+                }
                 else
                 {
                     System.out.println("No variable given to set, please try again.");
@@ -638,12 +689,18 @@ class CharacterCreate
                             System.out.println("Rolled a " + roll(20, player.getCha()) + " with charisma!");
                             break;
                         default:
-                            if(isInteger(words[1])){
+                            if(isInteger(words[1]))
+                            {
                                 System.out.println("Rolled a " + roll(Integer.parseInt(words[1]), 10) + "!");
-                                break;
                             }
                             else
-                                System.out.println("Unable to read the number. Please try again.");
+                            {
+                                int mod = player.getModfier(words[1]);
+                                if(mod != -100)
+                                {
+                                    System.out.println("Rolled a " + (roll(20,10) + mod) + " with " + words[1] + "!");
+                                }
+                            }
                             break;
                     }
                     break;
