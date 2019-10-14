@@ -78,7 +78,7 @@ class Character
         refresh(); //Makes sure there wasn't change to stats. Shouldn't be necessary given how rarely stats change, but reassurance is worth computation
         for(int i = 0; i < proficiencies.length; i++)
         {
-            if(proficiencies[i].equalsIgnoreCase(skill))
+            if(proficiencies[i].equalsIgnoreCase(skill) || (i == 2 && skill.equalsIgnoreCase("sleight")))
                 return ((bonuses[i]*profBonus) + (stats[proficiencyType[i] - 1])/2 - 5);
         }
         System.out.println("This is not a known skill, modifier is 0.");
@@ -111,7 +111,7 @@ class Character
     {
         for(int i = 0; i < proficiencies.length; i++)
         {
-            if(proficiencies[i].equalsIgnoreCase(prof))
+            if(proficiencies[i].equalsIgnoreCase(prof)|| (i == 2 && prof.equalsIgnoreCase("sleight")))
             {
                 this.bonuses[i] = 1;
                 return true;
@@ -638,7 +638,7 @@ class CharacterCreate
                         
                     }
                 }
-                else if (words[1].equalsIgnoreCase("proficiency") && words.length == 3)
+                else if (words[1].equalsIgnoreCase("proficiency") && words.length >= 3)
                 {
                     if(player.setSkill(words[2]))
                                 System.out.println(player.getName() + " is now proficient in " + words[2] + "!");
