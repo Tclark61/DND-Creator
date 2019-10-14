@@ -107,11 +107,16 @@ class Character
         return maxHealth;
     }
     
+    public int getCurrentHealth()
+    {
+        return currentHealth;
+    }
+    
     public boolean setSkill(String prof)
     {
         for(int i = 0; i < proficiencies.length; i++)
         {
-            if(proficiencies[i].equalsIgnoreCase(prof)|| (i == 2 && prof.equalsIgnoreCase("sleight")))
+            if(proficiencies[i].equalsIgnoreCase(prof)|| (i == 2 && prof.equalsIgnoreCase("sleight")) || (i == 9 && prof.equalsIgnoreCase("Animal")))
             {
                 this.bonuses[i] = 1;
                 return true;
@@ -334,7 +339,7 @@ class CharacterCreate
 {
 
     public static String workingCommands = "Help, Quit, Get [Variable], Set [Variable] [Value], Variables, Roll Stats, Roll [Number of Sides on Die], Roll [Stat]," 
-    + "New Character, New Character [Name], List, Give Exp [Value]";
+    + "New Character, New Character [Name], List, Give Exp [Value], Proficiencies, Info";
     public static String workingVariables = "Name, Str, Dex, Con, Wis, Intl, Cha, Class, Level, Exp";
     
     public static boolean isInteger(String str) {
@@ -395,6 +400,22 @@ class CharacterCreate
         
         switch (words[0].toLowerCase()){ //Check what was in the first word given (not case sensitive)
             
+            case "info":
+                System.out.println(player.getName() + " is a level " + player.getLevel() + " " + player.getGender() + " " + player.getCharClass());
+                System.out.println("Health: " + player.getCurrentHealth() + "/" + player.getMaxHealth());
+                System.out.println("---------------------------------");
+                for(int i = 0; i < 6; i++)
+                {
+                    System.out.println(player.variables[i + 1] + ": " + player.stats[i]);
+                }
+                System.out.println("---------------------------------");
+                System.out.println("Proficiencies:");
+                for(int i = 0; i < player.proficiencies.length; i++)
+                {
+                    if(player.bonuses[i] == 1)
+                        System.out.println(player.proficiencies[i] + ": " + player.getModfier(player.proficiencies[i]));
+                }
+                break;
             case "proficiencies":
                 for(int i = 0; i < player.proficiencies.length; i++)
                 {
