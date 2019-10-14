@@ -382,7 +382,7 @@ class CharacterCreate
     
     public static ArrayList<Character> textInput(String input, ArrayList<Character> roster, String[] names)
     {
-        boolean quit = false, found = false;
+        boolean found = false;
         int buffer = 0;
         int test;
         Scanner scanner = new Scanner(System.in);
@@ -540,9 +540,6 @@ class CharacterCreate
                 break;
             case "variables":
                 System.out.println("Currently working variables:\n{" + workingVariables + "}");
-                break;
-            case "quit":
-                quit = true;
                 break;
             case "get":
                 if(words.length == 2 || (words[1].equalsIgnoreCase("skill") && words.length == 3))
@@ -755,7 +752,17 @@ class CharacterCreate
         String nameLine = "Failed";
         Scanner scanner = new Scanner(System.in);
         Character first = new Character();
+        String line = new String();
+        Random random = new Random();
         first.calculateLevel();
+        //set all stats to 10
+        first.setStr(10);
+        first.setDex(10);
+        first.setCon(10);
+        first.setIntl(10);
+        first.setWis(10);
+        first.setCha(10);
+        first.setLevel(1); //set level
         try //Try to find the text file in, the 'try' and 'catch' test to see if the file is found
         {
             BufferedReader in = new BufferedReader(new FileReader("names.txt"));
@@ -776,21 +783,19 @@ class CharacterCreate
         }
         names = nameLine.split(", "); //This splits the single line into multiple smaller strings (individual names) by splitting it at every comma followed by a space
         first.setCurrent(true);
+        first.setName(names[random.nextInt(names.length)]); //random name
         ArrayList<Character> roster = new ArrayList<Character>(); //New ArrayList of characters, ArrayLists are much better than arrays at adding a continuous amount of entries
         roster.add(first); //Add character to roster
-        String line = new String();
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)
         {
             line = scanner.nextLine(); //Have the user input a text line
-            if(line.equalsIgnoreCase("quit")){
+            if(line.equalsIgnoreCase("quit"))
+            {
                 break;
             }
             roster = textInput(line, roster, names); //Analyze the line using textInput function, update the roster with any changes
         }
-    
-    
+        scanner.close();
     }
-
-
 }
