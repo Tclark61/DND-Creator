@@ -33,6 +33,7 @@ class Character
     public Character() //Happens on initialization of every character
     {
         bonuses = new int[proficiencies.length];
+        this.gender = "Genderless";
     }
     
     public int getProfBonus()
@@ -494,6 +495,12 @@ class CharacterCreate
                         backup.setLevel(1);
                         backup.setClass("Peasant");
                         System.out.println("This character's name will be " + backup.getName());
+                        buffer = random.nextInt() % 2;
+                        if(buffer == 1)
+                            backup.setGender("Male");
+                        else
+                            backup.setGender("Female");
+                        buffer = 0;
                         backup.rollEverything();
                         System.out.println("Rolling " + backup.getName() + "'s stats....");
                         for(int i = 0; i < 6; i++)
@@ -515,6 +522,12 @@ class CharacterCreate
                     answer = scanner.nextLine();
                     if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("YES")){
                         backup.rollEverything();
+                        buffer = random.nextInt() % 2;
+                        if(buffer == 1)
+                            backup.setGender("Male");
+                        else
+                            backup.setGender("Female");
+                        buffer = 0;
                         System.out.println("Rolling " + backup.getName() + "'s stats....");
                         for(int i = 0; i < 6; i++)
                         {
@@ -751,6 +764,7 @@ class CharacterCreate
         Character first = new Character();
         String line = new String();
         Random random = new Random();
+        int binary;
         first.calculateLevel();
         first.setStr(10);//set all stats to 10
         first.setDex(10);
@@ -778,6 +792,11 @@ class CharacterCreate
             names[0] = "John";
         }
         names = nameLine.split(", "); //This splits the single line into multiple smaller strings (individual names) by splitting it at every comma followed by a space
+        binary = random.nextInt() % 2;
+        if(binary == 1)
+            first.setGender("Male");
+        else
+            first.setGender("Female");
         first.setCurrent(true);
         first.setName(names[random.nextInt(names.length)]); //random name
         ArrayList<Character> roster = new ArrayList<Character>(); //New ArrayList of characters, ArrayLists are much better than arrays at adding a continuous amount of entries
