@@ -11,22 +11,10 @@ import java.io.*;
 class Character
 {
     public boolean current;
-    private String name;
-    private String race;
-    private String gender;
-    private String charClass;
-    private int level;
-    public int maxHealth;
-    public int currentHealth;
-    private int experience;
-    private int str;
-    private int dex;
-    private int con;
-    private int intl;
-    private int wis;
-    private int cha;
-    private int profBonus;
+    private String name, race, gender, charClass;
+    public int maxHealth, currentHealth;
     public int[] stats;
+    private int experience, profBonus, level, str, dex, con, intl, wis, cha;
     private static int[] profBonusChart = {1,5,9,13,17};
     public static int[] proficiencyType = {1,2,2,2,4,4,4,4,4,5,5,5,5,5,6,6,6,6};
     public static String[] proficiencies = {"Athletics", "Acrobatics", "Sleight of Hand", "Stealth", 
@@ -394,14 +382,12 @@ class CharacterCreate
     public static ArrayList<Character> textInput(String input, ArrayList<Character> roster, String[] names)
     {
         boolean found = false;
-        int buffer = 0;
-        int test;
+        int buffer = 0, test;
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
         Character player = findCurrent(roster); //Find the current character to work on
         int roll = 0, modifier = 0;
-        //Split the input into a series of words
-        String[] words = input.split(" ");
+        String[] words = input.split(" "); //Split the input into a series of words
         
         if(player == null)
         {
@@ -740,7 +726,6 @@ class CharacterCreate
                 break;
             
         }
-
         return roster;
     }
     
