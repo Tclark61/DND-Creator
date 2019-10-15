@@ -85,7 +85,7 @@ class Character
         return -100;
     }
     
-    private void refresh()
+    public void refresh()
     {
         stats = new int[6];
         stats[0] = str;
@@ -158,12 +158,23 @@ class Character
                 if(level == 0 || level == 1)
                 {
                     this.maxHealth = Math.max((healthDice[i] + (con/2) - 5),5); //For the sake of my mental health, set minimum level 1 health to 5
+                    this.currentHealth = maxHealth;
                 }
                 else
                 {
-                    for(int j = 0; j < change; j++)
+                    for(int j = 0; j < Math.abs(change); j++) //Absolute value of change because change can be negative
                     {
-                        this.maxHealth = maxHealth + Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
+                        if(change > 0)
+                        {
+                            this.maxHealth = maxHealth + Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
+                            this.currentHealth = maxHealth;
+                        }
+                        else
+                        {
+                            this.maxHealth = maxHealth - Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
+                            this.currentHealth = maxHealth;
+                        }
+                        
                     }
                 }
                 break;
@@ -337,10 +348,10 @@ class Character
 
 class CharacterCreate
 {
-
-    public static String workingCommands = "Help, Quit, Get [Variable], Set [Variable] [Value], Variables, Roll Stats, Roll [Number of Sides on Die], Roll [Stat]," 
-    + "New Character, New Character [Name], List, Give Exp [Value], Proficiencies, Info";
-    public static String workingVariables = "Name, Str, Dex, Con, Wis, Intl, Cha, Class, Level, Exp";
+ 
+    public static String workingCommands = "Help, Quit, Get [Variable], Set [Variable] [Value], Set [Class], Variables, Roll Stats, Roll [Number of Sides on Die], Roll [Stat/Skill]," 
+    + "\nNew Character, New Character [Name], List, Give Exp [Value], Skills, Info, Switch [Character Name]";
+    public static String workingVariables = "Name, Str, Dex, Con, Wis, Intl, Cha, Class, Level, Exp, Proficiency, Gender";
     
     public static boolean isInteger(String str) {
     if (str == null) {
@@ -404,8 +415,9 @@ class CharacterCreate
                 System.out.println(player.getName() + " is a level " + player.getLevel() + " " + player.getGender() + " " + player.getCharClass());
                 System.out.println("Health: " + player.getCurrentHealth() + "/" + player.getMaxHealth());
                 System.out.println("---------------------------------");
+                player.refresh();
                 for(int i = 0; i < 6; i++)
-                {
+                {    
                     System.out.println(player.variables[i + 1] + ": " + player.stats[i]);
                 }
                 System.out.println("---------------------------------");
@@ -416,7 +428,7 @@ class CharacterCreate
                         System.out.println(player.proficiencies[i] + ": " + player.getModfier(player.proficiencies[i]));
                 }
                 break;
-            case "proficiencies":
+            case "skills":
                 for(int i = 0; i < player.proficiencies.length; i++)
                 {
                     System.out.println(player.proficiencies[i] + ": " + player.getModfier(player.proficiencies[i]));
