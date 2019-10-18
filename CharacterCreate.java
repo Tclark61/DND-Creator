@@ -24,8 +24,8 @@ class Character
     public int[] bonuses;
     public static String[] variables = {"Name", "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", 
     "Charisma", "Class", "Gender","Level", "Experience", "Proficiencies"};
-    public static String[] classes = {"Peasant", "Fighter","Wizard", "Rogue","Cleric","Paladin","Warlock"};
-    public static int[] healthDice = {3,10,6,8,8,10,6}; //Dice used to calculate Health for a specific class.
+    public static String[] classes = {"Peasant", "Fighter","Wizard", "Rogue","Cleric","Paladin","Warlock","Barbarian"};
+    public static int[] healthDice = {3,10,6,8,8,10,6,12}; //Dice used to calculate Health for a specific class.
     public static int[] expThreshhold = {0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,
     165000, 195000, 225000, 265000, 305000, 355000}; //The set experience threshholds for dnd 5e. They do not follow a formula, which was pretty annoying
     
@@ -34,6 +34,9 @@ class Character
     {
         bonuses = new int[proficiencies.length];
         this.gender = "Genderless";
+        setLevel(1);
+        setClass("Peasant");
+        
     }
     
     public int getProfBonus()
@@ -124,7 +127,7 @@ class Character
                 foundClass = true;
                 charClass = classes[i];
                 this.maxHealth = 0;
-                changeHealth(level);
+                changeHealth(level - 1);
                 this.currentHealth = maxHealth;
             }
         }
@@ -136,6 +139,7 @@ class Character
     }
     public void changeHealth(int change)
     {
+        int gain = 0;
         if(charClass == null)
         {
             this.charClass = classes[0];
@@ -155,12 +159,16 @@ class Character
                     {
                         if(change > 0)
                         {
+                            gain = CharacterCreate.roll(healthDice[i],con);
+                            System.out.println(getName() + " gained " + Math.max(gain,0) + " health!");
                             this.maxHealth = maxHealth + Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
                             this.currentHealth = maxHealth;
                         }
                         else
                         {
-                            this.maxHealth = maxHealth - Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
+                            gain = CharacterCreate.roll(healthDice[i],con);
+                            System.out.println(getName() + " lost " + Math.max(gain,0) + " health!");
+                            this.maxHealth = maxHealth - Math.max(gain,0); //You can't gain health from leveling down
                             this.currentHealth = maxHealth;
                         }
                         
@@ -545,9 +553,15 @@ class CharacterCreate
                     System.out.println("Unable to understand prompt. Are you trying to say 'new character'?");
                 }
                 break;
-            
+            case "classes":
+                for(int i = 0; i < player.classes.length; i++)
+                {
+                    System.out.println(player.classes[i]);
+                }
+                break;
             case "help":
                 System.out.println("Currently working commands:\n{" + workingCommands + "}");
+                System.out.println("Type Variables to list all variables. Type Classes to list all classes. Type Skills to list all skills.");
                 break;
             case "variables":
                 System.out.println("Currently working variables:\n{" + workingVariables + "}");
