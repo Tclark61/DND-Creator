@@ -769,6 +769,18 @@ class CharacterCreate
         return roll;
     }
     
+    public static String shorten()
+    {
+        {
+            if(words[1].equalsIgnoreCase("strength"))
+            {
+                return "str";
+            }
+            else
+            return "strength";
+        }
+    }
+
     public static void main(String args[])
     {
         boolean quit = false;
