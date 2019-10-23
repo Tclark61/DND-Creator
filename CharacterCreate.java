@@ -607,6 +607,9 @@ class CharacterCreate
                                 System.out.println(player.getName() + "'s proficiency in " + words[2] + " is " + test);
                             }
                             break;
+                        case "gold":
+                            System.out.println(player.getName() + "'s current gold is " + player.getGold());
+                            break;                       
                         case "health":
                             System.out.println(player.getName() + "'s current health is " + player.getMaxHealth());
                             break;
@@ -660,6 +663,15 @@ class CharacterCreate
                 if(words.length == 3 && (isInteger(words[2]) || words[1].equalsIgnoreCase("name") || words[1].equalsIgnoreCase("class") || words[1].equalsIgnoreCase("gender")))
                 {
                     switch(words[1].toLowerCase()){
+                        case "gold":
+                            if(Integer.parseInt(words[2]) >= 0)
+                            {
+                                player.setGold(Integer.parseInt(words[2]));
+                                System.out.println(player.getName() + " gained " + Integer.parseInt(words[2]) + " gold, and now has " + player.getGold() + " gold pieces!");
+                            }
+                            else
+                                System.out.println("That would result in a negative gold amount, and you can't have negative gold.");
+                            break;
                         case "gender":
                             player.setGender(words[2]);
                             System.out.println(player.getName() + " is a " + player.getGender() + ", got it!"); //I'm walking into this being so easily abusable by letting any string be added here.
@@ -799,7 +811,7 @@ class CharacterCreate
         return roll;
     }
     
-    public static String shorten()
+    /* public static String shorten()
     {
         {
             if(words[1].equalsIgnoreCase("strength"))
@@ -809,7 +821,7 @@ class CharacterCreate
             else
             return "strength";
         }
-    }
+    } */
 
     public static void main(String args[])
     {
