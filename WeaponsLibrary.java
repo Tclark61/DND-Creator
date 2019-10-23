@@ -1,12 +1,15 @@
+package dnd;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
+
 
 class Weapon
 {
     public String name, description;
     private int[] damageDice; //If the weapon does 1d8, then
-    private String damageType;
+    private String damageType, weaponType;
     
     public Weapon()
     {
@@ -27,7 +30,7 @@ class Weapon
     
 }
 
-class WeaponsLibrary
+public class WeaponsLibrary
 {
     public ArrayList<Weapon> weaponLib;
     
@@ -44,14 +47,14 @@ class WeaponsLibrary
             }
             catch (IOException io)
             {
-                
+                line = "Failed";
             }
         }
         catch (FileNotFoundException ex)
         {
-
+            line = "Failed";
         }
-        if(line != null) //If it finds the text file weapons.txt and can read from it
+        if(line != null || !line.equals("Failed")) //If it finds the text file weapons.txt and can read from it
         {
             Weapon longsword = new Weapon();
             weaponLib.add(longsword);

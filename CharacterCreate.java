@@ -2,11 +2,12 @@
 //Author: Tyler Clark
 //Created in October 2019
 
-
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
 import java.io.*;
+import dnd.WeaponsLibrary;
+
 
 
 class Character
