@@ -2,11 +2,13 @@
 //Author: Tyler Clark
 //Created in October 2019
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.io.*;
-import dnd.*;
+import java.util.Scanner;
 
 
 
@@ -813,18 +815,47 @@ class CharacterCreate
         roll = roll + (modifier/2) - 5;
         return roll;
     }
-    
-    /* public static String shorten()
+    //written by MAM131
+    public static String shorten(String word) //shortens the word so you can use shortened and long version of the stats.
     {
+        if(word.equalsIgnoreCase("Strength"))
         {
-            if(words[1].equalsIgnoreCase("strength"))
-            {
-                return "str";
-            }
-            else
-            return "strength";
+            word = "str";
+            return word;
+            
         }
-    } */
+        else if(word.equalsIgnoreCase("Dexterity"))
+        {
+            word = "dex";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Consitution"))
+        {
+            word = "con";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Intelligence"))
+        {
+            word = "intl";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Wisdom"))
+        {
+            word = "wis";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Charisma"))
+        {
+            word = "cha";
+            return word;
+            
+        }
+        return word;
+    }
 
     public static void main(String args[])
     {
