@@ -5,36 +5,12 @@ import java.util.Scanner;
 import java.io.*;
 
 
-class Weapon
-{
-    public String name, description;
-    private int[] damageDice; //If the weapon does 1d8, then
-    private String damageType, weaponType;
-    
-    public Weapon()
-    {
-        
-    }
-    
-    public Weapon(String name, String desc)
-    {
-        this.name = name;
-        this.description = desc;
-    }
-    
-    public String getName()
-    {
-        return name;
-    }
-    
-    
-}
 
 public class WeaponsLibrary
 {
     public ArrayList<Weapon> weaponLib;
     
-    public WeaponsLibrary()
+    public ArrayList<Weapon> WeaponsLibrary()
     {
         String line = new String();
         weaponLib = new ArrayList<Weapon>();
@@ -56,11 +32,11 @@ public class WeaponsLibrary
         }
         if(line != null || !line.equals("Failed")) //If it finds the text file weapons.txt and can read from it
         {
-            Weapon longsword = new Weapon();
+            Weapon longsword = new Weapon("longsword");
             weaponLib.add(longsword);
         }
         
-        
+        return weaponLib;
         
     }
 

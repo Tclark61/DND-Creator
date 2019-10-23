@@ -6,7 +6,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
 import java.io.*;
-import dnd.WeaponsLibrary;
+import dnd.*;
+
+
 
 
 
@@ -870,6 +872,14 @@ class CharacterCreate
         first.setName(names[random.nextInt(names.length)]); //random name
         ArrayList<Character> roster = new ArrayList<Character>(); //New ArrayList of characters, ArrayLists are much better than arrays at adding a continuous amount of entries
         roster.add(first); //Add character to roster
+        
+        ArrayList<dnd.Weapon> weaponLib = new ArrayList<dnd.Weapon>();
+        dnd.Weapon longsword = new dnd.Weapon("longsword");
+        weaponLib.add(longsword);
+        // if(weaponLib.size() > 0)
+            // System.out.println("The first weapon is a " + weaponLib.get(0).getName());
+        // else
+            // System.out.println("No weapons found. :(");
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)
         {
