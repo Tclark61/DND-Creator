@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.io.*;
 
+
 class Character
 {
     public boolean current;
     private String name, race, gender, charClass;
     public int maxHealth, currentHealth;
     public int[] stats;
-    private int experience, profBonus, level, str, dex, con, intl, wis, cha;
+    private int experience, profBonus, level, str, dex, con, intl, wis, cha, gold;
     private static int[] profBonusChart = {1,5,9,13,17};
     public static int[] proficiencyType = {1,2,2,2,4,4,4,4,4,5,5,5,5,5,6,6,6,6};
     public static String[] proficiencies = {"Athletics", "Acrobatics", "Sleight of Hand", "Stealth", 
@@ -37,6 +38,24 @@ class Character
         setLevel(1);
         setClass("Peasant");
         
+    }
+    
+    public int getGold()
+    {
+        return gold;
+    }
+    
+    public void setGold(int setGold)
+    {
+        if(setGold >= 0) //You can't have negative gold!
+            this.gold = setGold;
+        
+    }
+    
+    public void addGold(int add)
+    {
+        if((gold + add) >= 0) //You can't subtract gold past 0
+            this.gold = gold + add;
     }
     
     public int getProfBonus()
@@ -431,17 +450,28 @@ class CharacterCreate
                 break;
             
             case "give":
-                if(words.length == 3)
+                if(words.length == 3 && isInteger(words[2]))
                 {
                     if(words[1].equalsIgnoreCase("exp"))
                     {
                         player.gainExp(Integer.parseInt(words[2]));
                         System.out.println(player.getName() + " has " + player.getExp() + " and is level " + player.getLevel() + "!");
                     }
+                    if(words[1].equalsIgnoreCase("gold"))
+                    {
+                        if((Integer.parseInt(words[2]) + player.getGold()) >= 0)
+                        {
+                            player.addGold(Integer.parseInt(words[2]));
+                            System.out.println(player.getName() + " gained " + Integer.parseInt(words[2]) + " gold, and now has " + player.getGold() + " gold pieces!");
+                        }
+                        else
+                            System.out.println("That would result in a negative gold amount, and you can't have negative gold.");
+                        
+                    }
                 }
                 else
                 {
-                    System.out.println("Could not understand. Did you mean 'Give exp'? ");
+                    System.out.println("Could not understand. Did you mean 'Give exp' or 'Give gold'? ");
                 }
                 break;
                 
