@@ -10,6 +10,11 @@ public class WeaponsLibrary
 {
     public ArrayList<Weapon> weaponLib;
     
+    private ArrayList<Weapon> parser(String line, ArrayList<Weapon> weaponLib)
+    {
+        return weaponLib;
+    }
+    
     public ArrayList<Weapon> WeaponsLibrary()
     {
         String line = new String();
