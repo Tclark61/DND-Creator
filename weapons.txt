@@ -5,7 +5,7 @@
 // Type: Longsword
 // Rarity: Legendary
 // Range: Melee
-// Damage: 1d8 Slashing, 2d6 Fire
+// Damage: 1d8 Slashing 2d6 Fire
 // Description: "My favorite character from my son's fanfic uses this sword"
 // Modifier: Finesse
 // }
@@ -15,7 +15,7 @@ Type: Longsword
 Rarity: Common
 Range: Melee
 Damage: 1d8 Slashing
-Description: "Standard longsword, the starting sword for more adventurers."
+Description: "Standard longsword, the starting sword for most adventurers."
 Modifier: Str
 }
 
@@ -43,6 +43,16 @@ Type: Rapier
 Rarity: Common
 Range: Melee
 Damage: 1d8 Piercing
-Description: "The gentleman's weapon of choice... Or the thief's."
+Description: "The weapon of choice of gentlemen... Or thieves."
 Modifier: Finesse
+}
+
+{
+Name: Heavy Crossbow
+Type: Crossbow
+Rarity: Uncommon
+Range: Ranged 100
+Damage: 1d10 Piercing
+Description: "Strong mechanical bow that pierces through flesh"
+Modifier: Dexterity
 }

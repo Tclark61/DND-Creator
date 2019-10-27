@@ -904,10 +904,11 @@ class CharacterCreate
         
         dnd.WeaponsLibrary library =  new dnd.WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
         ArrayList<dnd.Weapon> weaponLib = library.weaponLib;
-        // for(int i = 0; i < weaponLib.size(); i++)
-        // {          
-            // System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range. It also has modifier " + weaponLib.get(i).getModifier());
-        // }
+        for(int i = 0; i < weaponLib.size(); i++)
+        {          
+            System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range. It also has modifier " + weaponLib.get(i).getModifier());
+            System.out.println(weaponLib.get(i).getDescription());
+        }
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)
         {

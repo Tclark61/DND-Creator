@@ -16,6 +16,22 @@ public class WeaponsLibrary
     
     private Weapon damageCalc(String[] words, Weapon weapon)
     {
+        int[] dice;
+        String[] damageType;
+        char[] number = new char[3];
+        for(int i = 0; i < words.length; i++)
+        {
+
+            for(int j = 0; j < 3; j++)
+            {
+                if(Character.isDigit(words[i].charAt(j)))
+                {
+                    number[j] = words[i].charAt(j);
+                }
+                else
+                    break;
+            }
+        }
         return weapon;
     }
     
@@ -159,6 +175,7 @@ public class WeaponsLibrary
                                     words[1].equalsIgnoreCase("con") || words[1].equalsIgnoreCase("finesse") || words[1].equalsIgnoreCase("cha"))
                                         weapon.setModifier(words[1]);
                                 }
+                                break;
 
                             case "Description:":
                                 if(words.length > 1)
