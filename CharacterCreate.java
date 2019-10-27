@@ -425,7 +425,11 @@ class CharacterCreate
             System.out.println("Error: No current player. Please restart.");
             return roster;
         }
-        
+        if(words.length >= 2)
+        {
+            words[1] = shorten(words[1]);
+        }
+
         switch (words[0].toLowerCase()){ //Check what was in the first word given (not case sensitive)
             
             case "info":
@@ -828,7 +832,7 @@ class CharacterCreate
             return word;
             
         }
-        else if(word.equalsIgnoreCase("Consitution"))
+        else if(word.equalsIgnoreCase("Constitution"))
         {
             word = "con";
             return word;

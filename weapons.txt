@@ -56,3 +56,12 @@ Damage: 1d10 Piercing
 Description: "Strong mechanical bow that pierces through flesh"
 Modifier: Dexterity
 }
+
+{
+Name: Rusty Shortsword
+Type: Shortsword
+Rarity: Common
+Damage: 1d5
+Description: "An old sword"
+Modifier: Finesse
+}
