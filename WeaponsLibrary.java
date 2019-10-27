@@ -43,6 +43,47 @@ public class WeaponsLibrary
     return true;
     }
     
+    public static String shorten(String word) //shortens the word so you can use shortened and long version of the stats. Also stolen from CharacterCreate
+    {
+        if(word.equalsIgnoreCase("Strength"))
+        {
+            word = "str";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Dexterity"))
+        {
+            word = "dex";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Consitution"))
+        {
+            word = "con";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Intelligence"))
+        {
+            word = "intl";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Wisdom"))
+        {
+            word = "wis";
+            return word;
+            
+        }
+        else if(word.equalsIgnoreCase("Charisma"))
+        {
+            word = "cha";
+            return word;
+            
+        }
+        return word;
+    }
+    
     private ArrayList<Weapon> parser(String file, ArrayList<Weapon> weaponLib)
     {
         Weapon weapon = new Weapon();
@@ -110,6 +151,15 @@ public class WeaponsLibrary
                                         weapon.setRange(Integer.parseInt(words[1]));                                    
                                 }
                                 break;
+                            case "Modifier:":
+                                if(words.length > 1)
+                                {
+                                    words[1] = shorten(words[1]); //Using Jeanne's function
+                                    if(words[1].equalsIgnoreCase("str") || words[1].equalsIgnoreCase("dex") || words[1].equalsIgnoreCase("intl") || words[1].equalsIgnoreCase("wis") || 
+                                    words[1].equalsIgnoreCase("con") || words[1].equalsIgnoreCase("finesse") || words[1].equalsIgnoreCase("cha"))
+                                        weapon.setModifier(words[1]);
+                                }
+
                             case "Description:":
                                 if(words.length > 1)
                                     rest = words[1];

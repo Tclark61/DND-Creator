@@ -9,7 +9,7 @@ public class Weapon
     public String name, description;
     private int[] damageDice; //If the weapon does 1d8, then
     private String[] damageType;
-    private String weaponType, rarity;
+    private String weaponType, rarity, modifier;
     private int range;
     
     public Weapon()
@@ -26,6 +26,16 @@ public class Weapon
     public Weapon(String name)
     {
         this.name = name;
+    }
+    
+    public String getModifier()
+    {
+        return modifier;
+    }
+    
+    public void setModifier(String modifier)
+    {
+        this.modifier = modifier;
     }
     
     public String getName()

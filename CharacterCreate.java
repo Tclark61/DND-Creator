@@ -906,7 +906,7 @@ class CharacterCreate
         ArrayList<dnd.Weapon> weaponLib = library.weaponLib;
         // for(int i = 0; i < weaponLib.size(); i++)
         // {          
-            // System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range.");
+            // System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range. It also has modifier " + weaponLib.get(i).getModifier());
         // }
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)
