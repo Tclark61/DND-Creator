@@ -10,15 +10,16 @@ public class WeaponsLibrary
 {
     public ArrayList<Weapon> weaponLib;
     
-    private ArrayList<Weapon> parser(String line, ArrayList<Weapon> weaponLib)
+    private Weapon damageCalc(String line, Weapon weapon)
     {
-        return weaponLib;
+        return weapon;
     }
     
-    public ArrayList<Weapon> WeaponsLibrary()
+    
+    private ArrayList<Weapon> parser(String file, ArrayList<Weapon> weaponLib)
     {
+        Weapon weapon = new Weapon();
         String line = new String();
-        weaponLib = new ArrayList<Weapon>();
         try //Try to find the text file in, the 'try' and 'catch' test to see if the file is found
         {
             BufferedReader in = new BufferedReader(new FileReader("weapons.txt"));
@@ -30,18 +31,34 @@ public class WeaponsLibrary
             {
                 line = "Failed";
             }
+            if(!line.equals("Failed")) //If it finds the text file weapons.txt and can read from it
+            {
+                while(line != null)
+                {
+                    System.out.println(line);
+                    try
+                    {
+                        line = in.readLine();
+                    }
+                    catch(IOException e)
+                    {
+                        line = null;
+                    }
+                }
+            }
         }
         catch (FileNotFoundException ex)
         {
             line = "Failed";
         }
-        if(line != null || !line.equals("Failed")) //If it finds the text file weapons.txt and can read from it
-        {
-            Weapon longsword = new Weapon("longsword");
-            weaponLib.add(longsword);
-        }
-        
+
         return weaponLib;
+    }
+    
+    public WeaponsLibrary(String file)
+    {
+        String line = new String();
+        this.weaponLib = parser(file, new ArrayList<Weapon>());
         
     }
 

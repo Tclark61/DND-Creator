@@ -12,9 +12,6 @@ import java.util.Scanner;
 import dnd.*;
 
 
-
-
-
 class Character
 {
     public boolean current;
@@ -905,13 +902,10 @@ class CharacterCreate
         ArrayList<Character> roster = new ArrayList<Character>(); //New ArrayList of characters, ArrayLists are much better than arrays at adding a continuous amount of entries
         roster.add(first); //Add character to roster
         
-        ArrayList<dnd.Weapon> weaponLib = new ArrayList<dnd.Weapon>();
+        dnd.WeaponsLibrary library =  new dnd.WeaponsLibrary("weapons.txt");
+        ArrayList<dnd.Weapon> weaponLib = library.weaponLib;
         dnd.Weapon longsword = new dnd.Weapon("longsword");
         weaponLib.add(longsword);
-        // if(weaponLib.size() > 0)
-            // System.out.println("The first weapon is a " + weaponLib.get(0).getName());
-        // else
-            // System.out.println("No weapons found. :(");
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)
         {
