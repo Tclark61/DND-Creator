@@ -1,3 +1,7 @@
+//Class design for Weapons for DND character creation
+//Author: Tyler Clark
+//Designed in October 2019
+
 package dnd;
 
 public class Weapon
@@ -52,6 +56,8 @@ public class Weapon
     public void setWeaponType(String type)
     {
         this.weaponType = type;
+        if(name == null)
+            this.name = type;
     }
     
     public String getRarity()

@@ -902,10 +902,12 @@ class CharacterCreate
         ArrayList<Character> roster = new ArrayList<Character>(); //New ArrayList of characters, ArrayLists are much better than arrays at adding a continuous amount of entries
         roster.add(first); //Add character to roster
         
-        dnd.WeaponsLibrary library =  new dnd.WeaponsLibrary("weapons.txt");
+        dnd.WeaponsLibrary library =  new dnd.WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
         ArrayList<dnd.Weapon> weaponLib = library.weaponLib;
-        dnd.Weapon longsword = new dnd.Weapon("longsword");
-        weaponLib.add(longsword);
+        // for(int i = 0; i < weaponLib.size(); i++)
+        // {          
+            // System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range.");
+        // }
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)
         {
