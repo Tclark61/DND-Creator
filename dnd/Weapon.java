@@ -4,30 +4,73 @@
 
 package dnd;
 
+class Shield extends Weapon
+{
+    private int armorBonus;
+    
+    public Shield()
+    {
+        this.handed = 1;
+        this.weaponType = "Shield";
+        
+    }
+    
+    public int getArmorBonus()
+    {
+        return armorBonus;
+    }
+    
+    public void setArmorBonus(int ac)
+    {
+        this.armorBonus = ac;
+    }
+}
+
 public class Weapon
 {
     public String name, description;
     private int[] damageDice; //If the weapon does 1d8, then
     private String[] damageType;
-    private String weaponType, rarity, modifier;
+    public String weaponType, rarity;
+    private String modifier;
     private int range;
+    public int handed;
     
     public Weapon()
     {
         this.name = null;
+        this.handed = 2;
     }
     
     public Weapon(String name, String description)
     {
         this.name = name;
         this.description = description;
+        this.handed = 2;
     }
     
     public Weapon(String name)
     {
         this.name = name;
+        this.handed = 2;
     }
     
+    public int getHanded()
+    {
+        return handed;
+    }
+    
+    public void setHanded(int handed) //Make sure if a weapon isn't properly initialized, it just defaults to two handed.
+    {
+        if(handed == 1)
+        {
+            this.handed = 1;
+        }
+        else
+        {
+            this.handed = 2;
+        }
+    }
     public String getModifier()
     {
         return modifier;

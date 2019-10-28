@@ -7,6 +7,7 @@
 // Range: Melee
 // Damage: 1d8 Slashing 2d6 Fire
 // Description: "My favorite character from my son's fanfic uses this sword"
+// Handed: 1
 // Modifier: Finesse
 // }
 
@@ -15,6 +16,7 @@ Type: Longsword
 Rarity: Common
 Range: Melee
 Damage: 1d8 Slashing
+Handed: 1
 Description: "Standard longsword, the starting sword for most adventurers."
 Modifier: Str
 }
@@ -26,6 +28,7 @@ Range: Ranged 80
 Damage: 1d6 Piercing
 Description: "The go-to bow for every hunter or rogue."
 Modifier: Dexterity
+Handed: 2
 }
 
 {
@@ -35,6 +38,7 @@ Rarity: Rare
 Damage: 1d10 Slashing 1d4 Fire
 Range: Melee
 Modifier: Strength
+Handed: 1
 Description: "The weapon of Mantra the Forked before his untimely demise."
 }
 
@@ -45,6 +49,7 @@ Range: Melee
 Damage: 1d8 Piercing
 Description: "The weapon of choice of gentlemen... Or thieves."
 Modifier: Finesse
+Handed: 1
 }
 
 {
@@ -55,31 +60,38 @@ Range: Ranged 100
 Damage: 1d10 Piercing
 Description: "Strong mechanical bow that pierces through flesh"
 Modifier: Dexterity
+Handed: 2
 }
 
 {
 Name: Rusty Shortsword
 Type: Shortsword
+Range: Melee
 Rarity: Common
 Damage: 1d5
 Description: "An old sword"
 Modifier: Finesse
+Handed: 1
 }
 
 {
 Name: Rage of Bellum
 Type: Staff
 Rarity: Legendary
+Range: Ranged 60
 Damage: 3d6 Fire
 Description: "It's said this staff holds the spirit of a deceased fire wizard."
 Modifier: Intelligence
+Handed: 2
 }
 
 {
 Type: Battleaxe
 Rarity: Uncommon
 Damage: 1d10 Slashing
+Range: Melee
 Modifier: Str
+Handed: 2
 Description: "Garthog heard friends were hacking mainframe. Garthog brought battleaxe. Garthog is helping."
 }
 
@@ -87,6 +99,8 @@ Description: "Garthog heard friends were hacking mainframe. Garthog brought batt
 Name: Pixie Wand
 Type: Wand
 Rarity: Uncommon
+Handed: 1
+Range: Ranged 40
 Damage: 2d4 Thunder
 Modifier: Intelligence
 Description: "A wand blessed by pixies to enhance thunder magic."
@@ -96,6 +110,7 @@ Description: "A wand blessed by pixies to enhance thunder magic."
 Type: Dagger
 Rarity: Common
 Range: Melee
+Handed: 1
 Damage: 1d4 Piercing
 Description: "A weapon anyone can use."
 Modifier: Finesse
@@ -106,6 +121,7 @@ Name: Bandit's Scimitar
 Type: Scimitar
 Rarity: Common
 Range: Melee
+Handed: 1
 Damage: 1d6 Slashing
 Description: "The common weapon of every south-east bandit."
 Modifier: Finesse
@@ -115,6 +131,7 @@ Modifier: Finesse
 Name: Hand Crossbow
 Type: Crossbow
 Rarity: Common
+Handed: 1
 Range: Ranged 60
 Damage: 1d6 Piercing
 Description: "A light, one handed Crossbow perfect to deal with weak enemies."
@@ -126,6 +143,7 @@ Name: Hard Baguette
 Type: Rapier
 Rarity: Legendary
 Range: Melee
+Handed: 1
 Damage: 2d8
 Description: "A Baguette left behind in an empty barrel that managed to transform due to the presence of magic near it."
 Modifier: Finesse

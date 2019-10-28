@@ -190,6 +190,10 @@ public class WeaponsLibrary
                             case "Damage:":
                                 weapon = damageCalc(words, weapon); //I made this one its own function since it's slightly more complicated than the others
                                 break;
+                            case "Handed:":
+                                if(words.length > 1 && isInteger(words[1]))
+                                    weapon.setHanded(Integer.parseInt(words[1]));
+                                break;
                             case "}":
                                 weaponLib.add(weapon); //If we reach the } then we know we've finished getting all the data from a weapon.
                         }

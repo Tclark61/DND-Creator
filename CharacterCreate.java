@@ -32,7 +32,8 @@ class Character
     public static int[] healthDice = {3,10,6,8,8,10,6,12}; //Dice used to calculate Health for a specific class.
     public static int[] expThreshhold = {0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,
     165000, 195000, 225000, 265000, 305000, 355000}; //The set experience threshholds for dnd 5e. They do not follow a formula, which was pretty annoying
-    
+    private dnd.Weapon primaryHand;
+    private dnd.Weapon offHand;
     
     public Character() //Happens on initialization of every character
     {
@@ -43,6 +44,25 @@ class Character
         
     }
     
+    public dnd.Weapon getPrimaryHand()
+    {
+        return primaryHand;
+    }
+    
+    public void setPrimaryHand(dnd.Weapon weapon)
+    {
+        this.primaryHand = weapon;
+    }
+    
+    public dnd.Weapon getOffHand()
+    {
+        return offHand;
+    }
+    
+    public void setOffHand(dnd.Weapon weapon)
+    {
+        this.offHand = weapon;
+    }
     public int getGold()
     {
         return gold;
@@ -908,11 +928,11 @@ class CharacterCreate
         
         dnd.WeaponsLibrary library =  new dnd.WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
         ArrayList<dnd.Weapon> weaponLib = library.weaponLib;
-        for(int i = 0; i < weaponLib.size(); i++)
-        {          
-            System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range. It also has modifier " + weaponLib.get(i).getModifier());
-            System.out.println(weaponLib.get(i).getDescription());
-        }
+        // for(int i = 0; i < weaponLib.size(); i++)
+        // {          
+            // System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range. It's also " + weaponLib.get(i).getHanded() + " handed.");
+            // System.out.println(weaponLib.get(i).getDescription());
+        // }
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)
         {
