@@ -73,7 +73,7 @@ public class WeaponsLibrary
             return word;
             
         }
-        else if(word.equalsIgnoreCase("Consitution"))
+        else if(word.equalsIgnoreCase("Constitution"))
         {
             word = "con";
             return word;

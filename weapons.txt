@@ -65,3 +65,68 @@ Damage: 1d5
 Description: "An old sword"
 Modifier: Finesse
 }
+
+{
+Name: Rage of Bellum
+Type: Staff
+Rarity: Legendary
+Damage: 3d6 Fire
+Description: "It's said this staff holds the spirit of a deceased fire wizard."
+Modifier: Intelligence
+}
+
+{
+Type: Battleaxe
+Rarity: Uncommon
+Damage: 1d10 Slashing
+Modifier: Str
+Description: "Garthog heard friends were hacking mainframe. Garthog brought battleaxe. Garthog is helping."
+}
+
+{
+Name: Pixie Wand
+Type: Wand
+Rarity: Uncommon
+Damage: 2d4 Thunder
+Modifier: Intelligence
+Description: "A wand blessed by pixies to enhance thunder magic."
+}
+
+{
+Type: Dagger
+Rarity: Common
+Range: Melee
+Damage: 1d4 Piercing
+Description: "A weapon anyone can use."
+Modifier: Finesse
+}
+
+{
+Name: Bandit's Scimitar
+Type: Scimitar
+Rarity: Common
+Range: Melee
+Damage: 1d6 Slashing
+Description: "The common weapon of every south-east bandit."
+Modifier: Finesse
+}
+
+{
+Name: Hand Crossbow
+Type: Crossbow
+Rarity: Common
+Range: Ranged 60
+Damage: 1d6 Piercing
+Description: "A light, one handed Crossbow perfect to deal with weak enemies."
+Modifier: Dexterity
+}
+
+{
+Name: Hard Baguette
+Type: Rapier
+Rarity: Legendary
+Range: Melee
+Damage: 2d8
+Description: "A Baguette left behind in an empty barrel that managed to transform due to the presence of magic near it."
+Modifier: Finesse
+}
