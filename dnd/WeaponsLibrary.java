@@ -213,7 +213,6 @@ public class WeaponsLibrary
                                     shield = new Shield(weapon);
                                     shield.setArmorBonus(ac);
                                     weaponLib.add(shield);
-                                    System.out.println("Added shield with name " + shield.getName());
                                     isShield = false;
                                 }
 
