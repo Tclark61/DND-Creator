@@ -12,6 +12,21 @@ class Shield extends Weapon
     {
         this.handed = 1;
         this.weaponType = "Shield";
+        this.range = 0;
+        this.modifier = "N/A";
+        
+    }
+    
+    public Shield(Weapon weapon)
+    {
+        this.weaponType = "Shield";
+        this.range = 0;
+        this.modifier = "N/A";
+        this.name = weapon.getName();
+        if(this.name == null)
+            this.name = "Shield";
+        this.description = weapon.getDescription();
+        
         
     }
     
@@ -29,11 +44,11 @@ class Shield extends Weapon
 public class Weapon
 {
     public String name, description;
-    private int[] damageDice; //If the weapon does 1d8, then
-    private String[] damageType;
+    public int[] damageDice; //If the weapon does 1d8, then
+    public String[] damageType;
     public String weaponType, rarity;
-    private String modifier;
-    private int range;
+    public String modifier;
+    public int range;
     public int handed;
     
     public Weapon()

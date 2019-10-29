@@ -104,7 +104,10 @@ public class WeaponsLibrary
     {
         Weapon weapon = new Weapon();
         String line = new String();
+        Shield shield = new Shield();
+        int ac = 0;
         String[] words;
+        boolean isShield = false;
         String rest = new String();
         try //Try to find the text file in, the 'try' and 'catch' test to see if the file is found
         {
@@ -147,7 +150,17 @@ public class WeaponsLibrary
                                 break;
                             case "Type:":
                                 if(words.length > 1)
+                                {
+                                    if(words[1].equalsIgnoreCase("Shield")) //Check if the type is shield so that we can return all the info into a shield class
+                                    {
+                                        isShield = true;
+                                    }
                                     weapon.setWeaponType(words[1]);
+                                }
+                                break;
+                            case "Armor:":
+                                if(words.length > 1 && isInteger(words[1]))
+                                    ac = Integer.parseInt(words[1]);
                                 break;
                             case "Range:":
                                 if(words.length > 1)
@@ -195,7 +208,17 @@ public class WeaponsLibrary
                                     weapon.setHanded(Integer.parseInt(words[1]));
                                 break;
                             case "}":
-                                weaponLib.add(weapon); //If we reach the } then we know we've finished getting all the data from a weapon.
+                                if(isShield) //Special case for if the weapon is a shield
+                                {
+                                    shield = new Shield(weapon);
+                                    shield.setArmorBonus(ac);
+                                    weaponLib.add(shield);
+                                    System.out.println("Added shield with name " + shield.getName());
+                                    isShield = false;
+                                }
+
+                                else  
+                                    weaponLib.add(weapon); //If we reach the } then we know we've finished getting all the data from a weapon.
                         }
                     }
                     try

@@ -148,3 +148,23 @@ Damage: 2d8
 Description: "A Baguette left behind in an empty barrel that managed to transform due to the presence of magic near it."
 Modifier: Finesse
 }
+
+{
+Type: Shield
+Rarity: Uncommon
+Range: Ranged 800
+Handed: 1
+Damage: 2d100
+Description: "Just your standard ole shield, don't worry about it"
+Modifier: Finesse
+}
+
+{
+Name: Hatchet
+Rarity: Common
+Range: Melee
+Handed: 1
+Damage: 1d6
+Modifier: Str
+Description: "Great for chopping down trees, mediocre for chopping down people."
+}

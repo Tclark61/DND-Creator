@@ -41,6 +41,12 @@ class Character
         this.gender = "Genderless";
         setLevel(1);
         setClass("Peasant");
+        setStr(10);//set all stats to 10
+        setDex(10);
+        setCon(10);
+        setIntl(10);
+        setWis(10);
+        setCha(10);
         
     }
     
@@ -890,13 +896,6 @@ class CharacterCreate
         Random random = new Random();
         int binary;
         first.calculateLevel();
-        first.setStr(10);//set all stats to 10
-        first.setDex(10);
-        first.setCon(10);
-        first.setIntl(10);
-        first.setWis(10);
-        first.setCha(10);
-        first.setLevel(1); //set level
         try //Try to find the text file in, the 'try' and 'catch' test to see if the file is found
         {
             BufferedReader in = new BufferedReader(new FileReader("names.txt"));
@@ -928,11 +927,11 @@ class CharacterCreate
         
         dnd.WeaponsLibrary library =  new dnd.WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
         ArrayList<dnd.Weapon> weaponLib = library.weaponLib;
-        // for(int i = 0; i < weaponLib.size(); i++)
-        // {          
-            // System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range. It's also " + weaponLib.get(i).getHanded() + " handed.");
-            // System.out.println(weaponLib.get(i).getDescription());
-        // }
+        for(int i = 0; i < weaponLib.size(); i++)
+        {          
+            System.out.println(weaponLib.get(i).getName() + " has " + weaponLib.get(i).getRange() + " range. It's also " + weaponLib.get(i).getHanded() + " handed.");
+            System.out.println(weaponLib.get(i).getDescription());
+        }
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)
         {
