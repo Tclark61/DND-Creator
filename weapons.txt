@@ -68,7 +68,7 @@ Name: Rusty Shortsword
 Type: Shortsword
 Range: Melee
 Rarity: Common
-Damage: 1d5
+Damage: 1d5 Slashing
 Description: "An old sword"
 Modifier: Finesse
 Handed: 1
@@ -144,7 +144,7 @@ Type: Rapier
 Rarity: Legendary
 Range: Melee
 Handed: 1
-Damage: 2d8
+Damage: 2d8 Hunger
 Description: "A Baguette left behind in an empty barrel that managed to transform due to the presence of magic near it."
 Modifier: Finesse
 }
@@ -152,6 +152,7 @@ Modifier: Finesse
 {
 Type: Shield
 Rarity: Uncommon
+Armor: 2
 Range: Ranged 800
 Handed: 1
 Damage: 2d100
@@ -162,9 +163,52 @@ Modifier: Finesse
 {
 Name: Hatchet
 Rarity: Common
+Type: Battleaxe
 Range: Melee
 Handed: 1
-Damage: 1d6
+Damage: 1d6 Slashing
 Modifier: Str
 Description: "Great for chopping down trees, mediocre for chopping down people."
+}
+
+{
+Name: Devilish Blade
+Rarity: Rare
+Range: Melee
+Type: Rapier
+Damage: 1d8 Piercing 1d6 Poison
+Modifier: Finesse
+Handed: 1
+Description: "A rapier sharpened and coated in a fast acting poison. Please do not cut yourself with this."
+}
+
+{
+Name: Artix's Holy Axe
+Rarity: Rare
+Range: Melee
+Type: Battleaxe
+Damage: 1d10 Slashing 1d6 Radiant
+Handed: 2
+Description: "Borrowed from a friendly paladin. I bet he won't miss it."
+Modifier: Strength
+}
+
+{
+Name: Nature's Blessing
+Rarity: Rare
+Range: Ranged 60
+Type: Staff
+Damage: 1d12 Force 1d4 Thunder
+Handed: 2
+Modifier: Intelligence
+Description: "This staff was made from a tree that was sung to everyday by the woodcutter. It was a terrible betrayal. This staff takes out its feelings on your enemies."
+}
+
+{
+Name: Great Shield
+Rarity: Rare
+Type: Shield
+Armor: 3
+Handed: 1
+Description: "Same as the other shield but now it's great."
 }
