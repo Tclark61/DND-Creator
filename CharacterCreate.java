@@ -11,9 +11,61 @@ import java.util.Random;
 import java.util.Scanner;
 import dnd.*;
 
+class Item
+{
+
+    private String name;
+    private String description;
+    private String rarity;
+    private int cost;
+    
+    public String getName()
+    {
+        return name;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getDescription()
+    {
+        return description;
+    }
+    
+    public void setDescription(String newDescript)
+    {
+        this.description = newDescript;
+    }    
+    
+    public String getRarity()
+    {
+        return rarity;
+    }
+    
+    public void setRarity(String rarity)
+    {
+        this.rarity = rarity;
+    }
+    
+    public int getCost()
+    {
+        return cost;
+    }
+    
+    public void setCost(int cost)
+    {
+        this.cost = cost;
+    }
+   
+}
 
 class Character
 {
+    private int inventorySpots;
+    public Item[] backpack;
+    public Weapon[] weaponBag;
     public boolean current;
     private String name, race, gender, charClass;
     public int maxHealth, currentHealth;
@@ -32,11 +84,14 @@ class Character
     public static int[] healthDice = {3,10,6,8,8,10,6,12}; //Dice used to calculate Health for a specific class.
     public static int[] expThreshhold = {0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,
     165000, 195000, 225000, 265000, 305000, 355000}; //The set experience threshholds for dnd 5e. They do not follow a formula, which was pretty annoying
-    private dnd.Weapon primaryHand;
-    private dnd.Weapon offHand;
+    private Weapon primaryHand;
+    private Weapon offHand;
     
     public Character() //Happens on initialization of every character
     {
+        this.inventorySpots = 30;
+        backpack = new Item[30];
+        weaponBag = new Weapon[10];
         bonuses = new int[proficiencies.length];
         this.gender = "Genderless";
         setLevel(1);
@@ -48,6 +103,80 @@ class Character
         setWis(10);
         setCha(10);
         
+    }
+    
+    public boolean isBagRoom(int weight)
+    {
+        int totalWeight = 0;
+        for(int i = 0; i < 10; i++)
+        {
+            if(weaponBag[i] != null)
+            {
+                totalWeight = totalWeight + 3;
+            }
+        }
+        for(int i = 0; i < 30; i++)
+        {
+            if(backpack[i] != null)
+            {
+                totalWeight++;
+            }
+        }
+        if((totalWeight + weight) <= 30)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public int findBackpackSpace()
+    {
+        for(int i = 0; i < backpack.length; i++)
+        {
+            if(backpack[i] == null)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public int findWeaponBagSpace()
+    {
+        for(int i = 0; i < weaponBag.length; i++)
+        {
+            if(weaponBag[i] == null)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public void addItem(Item item)
+    {
+        if(isBagRoom(1))
+        {
+            backpack[findBackpackSpace()] = item;
+            inventorySpots--;
+        }
+        else
+        {
+            System.out.println("Couldn't add item to bag, there's no room!");
+        }
+    }
+    
+    public void addItem(Weapon weapon)
+    {
+        if(isBagRoom(3))
+        {
+            weaponBag[10 - inventorySpots] = weapon;
+            inventorySpots--;
+        }
+        else
+        {
+            System.out.println("Couldn't add item to bag, there's no room!");
+        }
     }
     
     public dnd.Weapon getPrimaryHand()
@@ -926,8 +1055,8 @@ class CharacterCreate
         roster.add(first); //Add character to roster
         
         int legendary = 0, rare = 0, uncommon = 0, common = 0;
-        dnd.WeaponsLibrary library =  new dnd.WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
-        ArrayList<dnd.Weapon> weaponLib = library.weaponLib;
+        WeaponsLibrary library =  new WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
+        ArrayList<Weapon> weaponLib = library.weaponLib;
         for(int i = 0; i < weaponLib.size(); i++)
         {
             System.out.println(weaponLib.get(i).getName() + " has damage " + weaponLib.get(i).getDamageDice(0) + "d" + weaponLib.get(i).getDamageDice(1) + " " + weaponLib.get(i).getDamageType(0));
