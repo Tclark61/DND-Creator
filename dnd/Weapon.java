@@ -21,11 +21,17 @@ class Shield extends Weapon
     {
         this.weaponType = "Shield";
         this.range = 0;
+        this.rarity = weapon.getRarity();
         this.modifier = "N/A";
         this.name = weapon.getName();
         if(this.name == null)
             this.name = "Shield";
         this.description = weapon.getDescription();
+        this.damageType = new String[1];
+        this.damageType[0] = "N/A";
+        this.damageDice = new int[2];
+        this.damageDice[0] = 0;
+        this.damageDice[1] = 1;
         
         
     }
@@ -44,7 +50,7 @@ class Shield extends Weapon
 public class Weapon
 {
     public String name, description;
-    public int[] damageDice; //If the weapon does 1d8, then
+    public int[] damageDice; //If the weapon does 1d8, then damageDice[0] = 1, damageDice[1] = 8.
     public String[] damageType;
     public String weaponType, rarity;
     public String modifier;
@@ -143,6 +149,14 @@ public class Weapon
         return damageDice;
     }
     
+    public int getDamageDice(int index)
+    {
+        if(index < damageDice.length)
+            return damageDice[index];
+        else
+            return 0;
+    }
+    
     public void setDamageDice(int[] dice)
     {
         this.damageDice = dice;
@@ -151,6 +165,14 @@ public class Weapon
     public String[] getDamageType()
     {
         return damageType;
+    }
+    
+    public String getDamageType(int index)
+    {
+        if(index < damageType.length)
+            return damageType[index];
+        else
+            return "N/A";
     }
     
     public void setDamageType(String[] damageType)

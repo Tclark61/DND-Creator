@@ -18,20 +18,43 @@ public class WeaponsLibrary
     {
         int[] dice;
         String[] damageType;
-        char[] number = new char[3];
+        int numDice = 0;
         for(int i = 0; i < words.length; i++)
         {
-
-            for(int j = 0; j < 3; j++)
+            if(Character.isDigit(words[i].charAt(0)))
             {
-                if(Character.isDigit(words[i].charAt(j)))
-                {
-                    number[j] = words[i].charAt(j);
-                }
-                else
-                    break;
+                numDice++;
             }
         }
+        dice = new int[2*numDice];
+        damageType = new String[numDice];
+        numDice = 0; //Reset the counter after we max the initializations
+        for(int i = 0; i < words.length; i++)
+        {
+            if(Character.isDigit(words[i].charAt(0)))
+            {
+                for(int j = 1; j < words[i].length(); j++)
+                {
+                    if(!Character.isDigit(words[i].charAt(j)) && !(words[i].charAt(j) == 'd' || words[i].charAt(j) == 'D') ) //If it's not a number or a d, then it's not a die.
+                        break;
+                    if(words[i].charAt(j) == 'd' || words[i].charAt(j) == 'D')
+                    {
+                        dice[numDice*2] = Integer.parseInt(words[i].substring(0,j));
+                        dice[(numDice*2) + 1] = Integer.parseInt(words[i].substring(j + 1, words[i].length()));
+                        if((i+1) < words.length)
+                            damageType[numDice] = words[i + 1];
+                        else
+                        {
+                            damageType[numDice] = "N/A";
+                            break;
+                        }
+                        numDice++;
+                    }
+                }
+            }
+        }
+        weapon.setDamageDice(dice);
+        weapon.setDamageType(damageType);
         return weapon;
     }
     
@@ -214,6 +237,7 @@ public class WeaponsLibrary
                                     shield.setArmorBonus(ac);
                                     weaponLib.add(shield);
                                     isShield = false;
+                                    ac = 0;
                                 }
 
                                 else  
