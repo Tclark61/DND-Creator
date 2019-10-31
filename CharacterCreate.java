@@ -153,6 +153,21 @@ class Character
         return -1;
     }
     
+    public boolean removeItem(Item item)
+    {
+        
+        for(int i = 0; i < weaponBag.length; i++)
+        {
+            if(item.getName().equals(weaponBag[i].getName()) && item.getDescription().equals(weaponBag[i].getDescription()))
+            {
+                weaponBag[i] = null;
+                return true;
+            }
+            
+        }
+        return false;
+    }
+    
     public void addItem(Item item)
     {
         if(isBagRoom(1))
@@ -1059,7 +1074,12 @@ class CharacterCreate
         ArrayList<Weapon> weaponLib = library.weaponLib;
         for(int i = 0; i < weaponLib.size(); i++)
         {
-            System.out.println(weaponLib.get(i).getName() + " has damage " + weaponLib.get(i).getDamageDice(0) + "d" + weaponLib.get(i).getDamageDice(1) + " " + weaponLib.get(i).getDamageType(0));
+            System.out.print(weaponLib.get(i).getName() + " has damage ");
+            for(int j = 0; j < weaponLib.get(i).getDamageType().length; j++)
+            {
+                System.out.print(weaponLib.get(i).getDamageDice(2*j) + "d" + weaponLib.get(i).getDamageDice(2*j + 1) + " " + weaponLib.get(i).getDamageType(j) + " ");
+            }
+            System.out.print("\n");
         }
         System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
         while(!quit)

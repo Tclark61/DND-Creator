@@ -212,3 +212,13 @@ Armor: 3
 Handed: 1
 Description: "Same as the other shield but now it's great."
 }
+
+{
+Name: Bow
+Rarity: Legendary
+Type: Dagger
+Damage: 2d8 Thunder 1d4 Slashing
+Description: "This name was a peculiar choice, admittedly."
+Handed: 2
+Modifier: Finesse
+}
