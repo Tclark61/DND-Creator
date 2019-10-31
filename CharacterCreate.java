@@ -161,6 +161,7 @@ class Character
             if(item.getName().equals(weaponBag[i].getName()) && item.getDescription().equals(weaponBag[i].getDescription()))
             {
                 weaponBag[i] = null;
+                inventorySpots++;
                 return true;
             }
             
