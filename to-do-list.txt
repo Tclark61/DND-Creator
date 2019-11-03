@@ -1,7 +1,6 @@
 LIST OF THINGS (In order of first to last)
 
 - Add the quit button
-- Try to fix the sideways scroll thing that pops up sometimes
 - Figure out a super elegant solution so that instead of scanning,
 the code stops and waits for the enter press then reads from the text line.
 Right now the code "crashes" if it hits a scanner.

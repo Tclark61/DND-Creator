@@ -24,6 +24,9 @@ import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
+import javax.swing.ScrollPaneConstants;
+import java.awt.SystemColor;
 
 public class GUI extends OutputStream {
 
@@ -510,6 +513,7 @@ public class GUI extends OutputStream {
                 frmDndCreator.setTitle("DND Creator");
                 frmDndCreator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 JTextArea ta = new JTextArea(24, 80);
+                ta.setBackground(SystemColor.menu);
                 ta.setEditable(false);
                 JTextField tf = new JTextField();
                 tf.addKeyListener(new KeyAdapter() {
@@ -523,7 +527,9 @@ public class GUI extends OutputStream {
                 	}
                 });
                 System.setOut(new PrintStream(new GUI(ta,tf)));
-                frmDndCreator.getContentPane().add(new JScrollPane(ta));
+                JScrollPane scrollPane = new JScrollPane(ta);
+                scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                frmDndCreator.getContentPane().add(scrollPane);
                 frmDndCreator.getContentPane().add(tf, BorderLayout.SOUTH);
                 frmDndCreator.pack();
                 frmDndCreator.setVisible(true);
