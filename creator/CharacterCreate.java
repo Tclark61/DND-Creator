@@ -267,6 +267,8 @@ class Character
         {
             if(proficiencies[i].equalsIgnoreCase(skill) || (i == 2 && skill.equalsIgnoreCase("sleight")))
                 return ((bonuses[i]*profBonus) + (stats[proficiencyType[i] - 1])/2 - 5);
+            if(proficiencies[i].equalsIgnoreCase(skill) || (i == 9 && skill.equalsIgnoreCase("animal")))
+                return ((bonuses[i]*profBonus) + (stats[proficiencyType[i] - 1])/2 - 5);
         }
         System.out.println("This is not a known skill, modifier is 0.");
         return -100;

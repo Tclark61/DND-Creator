@@ -80,6 +80,7 @@ public class GUI extends OutputStream {
             {
                 nameLine = in.readLine(); //If it passes both tests, scan in the first line (All of the first names)
                 in.close();
+                names = nameLine.split(", "); //This splits the single line into multiple smaller strings (individual names) by splitting it at every comma followed by a space
             }
             catch (IOException io)
             {
@@ -92,7 +93,7 @@ public class GUI extends OutputStream {
             names = new String[1];
             names[0] = "John";
         }
-        names = nameLine.split(", "); //This splits the single line into multiple smaller strings (individual names) by splitting it at every comma followed by a space
+        
         binary = random.nextInt() % 2;
         if(binary == 1)
             first.setGender("Male");
