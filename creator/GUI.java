@@ -517,7 +517,6 @@ public class GUI extends OutputStream {
                 	public void keyPressed(KeyEvent arg0) {
                 		if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
                 		{
-                			
                 			roster = textInput(tf.getText(), roster, names); //Analyze the line using textInput function, update the roster with any changes
                 			tf.setText("");
                 		}
