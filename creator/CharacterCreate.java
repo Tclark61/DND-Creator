@@ -612,7 +612,7 @@ public class CharacterCreate
         {
             word = "dex";
             return word;
-            
+             
         }
         else if(word.equalsIgnoreCase("Constitution"))
         {
