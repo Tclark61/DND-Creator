@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import dnd.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.util.stream.Stream;
+
 
 class Item
 {
@@ -536,7 +541,7 @@ class Character
 
 }
 
-class CharacterCreate
+public class CharacterCreate
 {
  
     public static String workingCommands = "Help, Quit, Get [Variable], Set [Variable] [Value], Set [Class], Variables, Roll Stats, Roll [Number of Sides on Die], Roll [Stat/Skill]," 
@@ -1032,6 +1037,15 @@ class CharacterCreate
 
     public static void main(String args[])
     {
+        // JFrame frame = new JFrame();
+        // frame.setTitle("DND Creator");
+        // frame.setLayout(new BorderLayout());
+        // frame.add(mainPanel, BorderLayout.CENTER);
+        // frame.setSize(new Dimension(800,650));
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setLocationRelativeTo(null);
+        // frame.setResizable(true);
+        // frame.setVisible(true);
         boolean quit = false;
         String[] names;
         String nameLine = "Failed";
