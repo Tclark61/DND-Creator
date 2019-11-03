@@ -1034,15 +1034,7 @@ public class CharacterCreate
 
     public static void main(String args[])
     {
-        // JFrame frame = new JFrame();
-        // frame.setTitle("DND Creator");
-        // frame.setLayout(new BorderLayout());
-        // frame.add(mainPanel, BorderLayout.CENTER);
-        // frame.setSize(new Dimension(800,650));
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // frame.setLocationRelativeTo(null);
-        // frame.setResizable(true);
-        // frame.setVisible(true);
+
         boolean quit = false;
         String[] names;
         String nameLine = "Failed";

@@ -1,62 +1,73 @@
 package creator;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
-import dnd.*;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+
+import dnd.*;
+
+import javax.swing.JTextField;
+import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JScrollPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class GUI {
+public class GUI extends OutputStream {
 
-	private JFrame frmDndCreator;
-	private JTextField textField;
+    private final JTextArea textArea;
+    private final JTextField textField;
+    static ArrayList<Character> roster;
+    static String[] names;
 
-	/**
-	 * Launch the application.
-	 */
-	ArrayList<Character> roster = new ArrayList<Character>();
-	String[] names;
-	
-	public static void main(String[] args) {
-        
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI window = new GUI();
-					window.frmDndCreator.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    private final StringBuilder sb = new StringBuilder();
 
-	/**
-	 * Create the application.
-	 */
-	public GUI() {
-		initialize();
-	}
+    public GUI(final JTextArea textArea, final JTextField textField) {
+        this.textArea = textArea;
+        this.textField = textField;
+    }
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		boolean quit = false;
+    @Override
+    public void flush() {
+    }
+
+    @Override
+    public void close() {
+    }
+
+    @Override
+    public void write(int b) throws IOException {
+
+        if (b == '\r') {
+            return;
+        }
+
+        if (b == '\n') {
+            final String text = sb.toString() + "\n";
+
+            textArea.append(text);
+            sb.setLength(0);
+        } else {
+            sb.append((char) b);
+        }
+    }
+
+    public static void main(String[] args) {
+        boolean quit = false;
         String nameLine = "Failed";
+        Scanner scanner = new Scanner(System.in);
         Character first = new Character();
         String line = new String();
         Random random = new Random();
@@ -68,6 +79,7 @@ public class GUI {
             try
             {
                 nameLine = in.readLine(); //If it passes both tests, scan in the first line (All of the first names)
+                in.close();
             }
             catch (IOException io)
             {
@@ -88,47 +100,47 @@ public class GUI {
             first.setGender("Female");
         first.setCurrent(true);
         first.setName(names[random.nextInt(names.length)]); //random name
+        roster = new ArrayList<Character>(); //New ArrayList of characters, ArrayLists are much better than arrays at adding a continuous amount of entries
         roster.add(first); //Add character to roster
         
         WeaponsLibrary library =  new WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
-        ArrayList<Weapon> weaponLib = library.weaponLib;
-		frmDndCreator = new JFrame();
-		frmDndCreator.setTitle("DND Creator");
-		frmDndCreator.setBounds(100, 100, 532, 375);
-		frmDndCreator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		textField = new JTextField();
-		textField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
-				{
-					String var = textField.getText();
-					textField.setText("");
-					roster = CharacterCreate.textInput(var, roster, names);
-					
-				}
-				
-			}
-		});
-		textField.setColumns(10);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setLineWrap(true);
-		GroupLayout groupLayout = new GroupLayout(frmDndCreator.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(textField, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-				.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-		);
-		frmDndCreator.getContentPane().setLayout(groupLayout);
-	}
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                JFrame frmDndCreator = new JFrame(GUI.class.getSimpleName());
+                frmDndCreator.setTitle("DND Creator");
+                frmDndCreator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                JTextArea ta = new JTextArea(24, 80);
+                ta.setEditable(false);
+                JTextField tf = new JTextField();
+                tf.addKeyListener(new KeyAdapter() {
+                	@Override
+                	public void keyPressed(KeyEvent arg0) {
+                		if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
+                		{
+                			
+                			roster = CharacterCreate.textInput(tf.getText(), roster, names); //Analyze the line using textInput function, update the roster with any changes
+                			tf.setText("");
+                		}
+                	}
+                });
+                System.setOut(new PrintStream(new GUI(ta,tf)));
+                frmDndCreator.getContentPane().add(new JScrollPane(ta));
+                frmDndCreator.getContentPane().add(tf, BorderLayout.SOUTH);
+                frmDndCreator.pack();
+                frmDndCreator.setVisible(true);
+                System.out.println("Welcome to my text based character creator! Type 'HELP' for a list of commands.");
+                Timer t = new Timer(1000, new ActionListener() {
+
+                    int count = 1;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    }
+                });
+                t.start();
+            }
+        });
+    }
 }
