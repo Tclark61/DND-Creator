@@ -604,37 +604,37 @@ public class CharacterCreate
     {
         if(word.equalsIgnoreCase("Strength"))
         {
-            word = "str";
+            word = word.substring(0,3);
             return word;
             
         }
         else if(word.equalsIgnoreCase("Dexterity"))
         {
-            word = "dex";
+            word = word.substring(0,3);
             return word;
              
         }
         else if(word.equalsIgnoreCase("Constitution"))
         {
-            word = "con";
+            word = word.substring(0,3);
             return word;
             
         }
         else if(word.equalsIgnoreCase("Intelligence"))
         {
-            word = "intl";
+            word = word.substring(0,3);
             return word;
             
         }
         else if(word.equalsIgnoreCase("Wisdom"))
         {
-            word = "wis";
+            word = word.substring(0,3);
             return word;
             
         }
         else if(word.equalsIgnoreCase("Charisma"))
         {
-            word = "cha";
+            word = word.substring(0,3);
             return word;
             
         }
