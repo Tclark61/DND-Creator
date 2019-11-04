@@ -622,7 +622,7 @@ public class CharacterCreate
         }
         else if(word.equalsIgnoreCase("Intelligence"))
         {
-            word = word.substring(0,3);
+            word = word.substring(0,4);
             return word;
             
         }
