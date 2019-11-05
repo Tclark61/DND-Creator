@@ -358,7 +358,7 @@ class Character
                         {
                             gain = CharacterCreate.roll(healthDice[i],con);
                             System.out.println(getName() + " gained " + Math.max(gain,0) + " health!");
-                            this.maxHealth = maxHealth + Math.max(CharacterCreate.roll(healthDice[i],con),0); //You can't lose health from leveling up
+                            this.maxHealth = maxHealth + Math.max(gain,0); //You can't lose health from leveling up
                             this.currentHealth = maxHealth;
                         }
                         else
