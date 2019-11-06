@@ -35,7 +35,8 @@ public class GUI extends OutputStream {
     static ArrayList<Character> roster;
     static String[] names;
     private static String answer;
-    private static boolean pause;
+    private static volatile boolean pause;
+    private static Timer timer;
 
     private final StringBuilder sb = new StringBuilder();
 
@@ -196,26 +197,7 @@ public class GUI extends OutputStream {
                     	answer = scanner.nextLine();
                     else
                     {
-                    	pause = true;
-                    	tf.addKeyListener(new KeyAdapter() {
-                        	@Override
-                        	public void keyPressed(KeyEvent arg0) {
-                        		if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
-                        		{
-                        			answer = tf.getText();
-                        			tf.setText("");
-                        			pause = false;
-                        		}
-                        	}
-                        });
-
-	                    	System.out.println("This is where the actual feature would go.");
-	                        try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+                    	answer = pauseUntilKey(tf);
                     }
                     if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("YES"))
                     {
@@ -247,7 +229,13 @@ public class GUI extends OutputStream {
                     backup.setName(words[2]);
                     System.out.println("Would you like a pre-made character with this name? If not, character's stats will be blank. Y/N");
                     String answer = new String();
-                    answer = scanner.nextLine();
+                    answer = new String();
+                    if(!isGUI)
+                    	answer = scanner.nextLine();
+                    else
+                    {
+                    	answer = pauseUntilKey(tf);
+                    }
                     if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("YES")){
                         backup.rollEverything();
                         buffer = random.nextInt() % 2;
@@ -487,7 +475,50 @@ public class GUI extends OutputStream {
         }
         return roster;
     }
+    
+    public static String pauseUntilKey(JTextField tf)
+    {
+    	boolean tooLong = false;
+    	int waitTime = 0;
+    	pause = true;
 
+    	tf.removeKeyListener(tf.getKeyListeners()[0]);
+    	KeyAdapter pauseForInput = new KeyAdapter() { //Get rid of the old keyAdapter and put in the new one just for this function
+    		@Override
+        	public void keyPressed(KeyEvent arg0) {
+        		if(arg0.getKeyCode() == KeyEvent.VK_ENTER) //When the enter key is pressed, this should trigger
+        		{
+        			pause = false; //Set local variable pause to be false to let us know we need to stop the while loop
+        			answer = tf.getText();
+        			tf.setText("");
+        		}
+        	}
+    	};
+    	timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	if(pause == false)
+            		timer.stop();
+            }
+        });
+    	timer.start();
+    	
+    	
+    	KeyAdapter enterMain = new KeyAdapter() { //Put the old key adapter back in
+        	@Override
+        	public void keyPressed(KeyEvent arg0) {
+        		if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
+        		{
+        			roster = textInput(tf.getText(), roster, names, true, tf); //Analyze the line using textInput function, update the roster with any changes
+        			tf.setText("");
+        		}
+        	}
+        };
+        tf.addKeyListener(enterMain);
+    	if(pause == false) 
+    		return answer; //If we left the while loop the way I wanted, then return whatever the user wrote before pressing enter.
+    	return "N"; //Otherwise, just return N for No.
+    }
+    
     public static void main(String[] args) {
         boolean quit = false;
         String nameLine = "Failed";
@@ -542,7 +573,7 @@ public class GUI extends OutputStream {
                 ta.setBackground(SystemColor.menu);
                 ta.setEditable(false);
                 JTextField tf = new JTextField();
-                tf.addKeyListener(new KeyAdapter() {
+                KeyAdapter enterMain = new KeyAdapter() {
                 	@Override
                 	public void keyPressed(KeyEvent arg0) {
                 		if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
@@ -551,7 +582,9 @@ public class GUI extends OutputStream {
                 			tf.setText("");
                 		}
                 	}
-                });
+                };
+                tf.addKeyListener(enterMain);
+                	
                 System.setOut(new PrintStream(new GUI(ta,tf)));
                 JScrollPane scrollPane = new JScrollPane(ta);
                 scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
