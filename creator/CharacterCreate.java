@@ -702,7 +702,7 @@ public class CharacterCreate
             {
                 break;
             }
-            roster = GUI.textInput(line, roster, names); //Analyze the line using textInput function, update the roster with any changes
+            roster = GUI.textInput(line, roster, names, false, null); //Analyze the line using textInput function, update the roster with any changes
         }
         scanner.close();
     }

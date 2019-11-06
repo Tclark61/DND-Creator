@@ -34,6 +34,8 @@ public class GUI extends OutputStream {
     private final JTextField textField;
     static ArrayList<Character> roster;
     static String[] names;
+    private static String answer;
+    private static boolean pause;
 
     private final StringBuilder sb = new StringBuilder();
 
@@ -67,7 +69,7 @@ public class GUI extends OutputStream {
         }
     }
     
-    public static ArrayList<Character> textInput(String input, ArrayList<Character> roster, String[] names)
+    public static ArrayList<Character> textInput(String input, ArrayList<Character> roster, String[] names, boolean isGUI, JTextField tf)
     {
         boolean found = false;
         int buffer = 0, test;
@@ -189,8 +191,32 @@ public class GUI extends OutputStream {
                 {
                     Character backup = new Character();
                     System.out.println("Would you like a pre-made character? If not, character will be blank. Y/N");
-                    String answer = new String();
-                    answer = scanner.nextLine();
+                    answer = new String();
+                    if(!isGUI)
+                    	answer = scanner.nextLine();
+                    else
+                    {
+                    	pause = true;
+                    	tf.addKeyListener(new KeyAdapter() {
+                        	@Override
+                        	public void keyPressed(KeyEvent arg0) {
+                        		if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
+                        		{
+                        			answer = tf.getText();
+                        			tf.setText("");
+                        			pause = false;
+                        		}
+                        	}
+                        });
+
+	                    	System.out.println("This is where the actual feature would go.");
+	                        try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                    }
                     if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("YES"))
                     {
                         backup.setName(names[random.nextInt(names.length)]); //Set the name equal to a random number in between 0 and (length of names.txt - 1)
@@ -521,7 +547,7 @@ public class GUI extends OutputStream {
                 	public void keyPressed(KeyEvent arg0) {
                 		if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
                 		{
-                			roster = textInput(tf.getText(), roster, names); //Analyze the line using textInput function, update the roster with any changes
+                			roster = textInput(tf.getText(), roster, names, true, tf); //Analyze the line using textInput function, update the roster with any changes
                 			tf.setText("");
                 		}
                 	}
