@@ -7,7 +7,7 @@ Eventually this project will expand to include gameplay that allows you to take 
 
 
 ## Testing Purposes
-Currently, Eclipse is used to run the code. JDK in the console has trouble handling the packaging, but Eclipse can compile and run successfully.
+Currently, Eclipse is used to run the code. JDK in the console has trouble handling the packaging, but Eclipse can compile and run successfully. If using Eclipse, running from CharacterCreate.java in the Creator package will execute the console version. GUI.java in the same Creator package will execute the version with an interface.
 Once the project has reached the point where it is ready to be tested, I will update the .exe so that it can be ran within one file.
 
 ## Authors
