@@ -12,4 +12,5 @@ Once the project has reached the point where it is ready to be tested, I will up
 
 ## Authors
 Written by: Tyler Clark (Tclark61)
+
 Editing/Bug testing by Marc-Antoine Martel (MAM131)
