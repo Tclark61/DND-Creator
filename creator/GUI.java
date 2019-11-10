@@ -27,6 +27,23 @@ import java.awt.event.KeyEvent;
 import java.awt.Color;
 import javax.swing.ScrollPaneConstants;
 import java.awt.SystemColor;
+import java.util.concurrent.CountDownLatch;
+
+class Pause
+{
+	String getKeyPress(JTextField tf, Timer timer)
+	{
+		while(timer.isRunning())
+		{
+			System.out.println("Timer is running: " + timer.isRunning());
+			if(!timer.isRunning()) {
+				break;
+			}
+		}
+		return tf.getText();
+	}
+}
+
 
 public class GUI extends OutputStream {
 
@@ -478,8 +495,6 @@ public class GUI extends OutputStream {
     
     public static String pauseUntilKey(JTextField tf)
     {
-    	boolean tooLong = false;
-    	int waitTime = 0;
     	pause = true;
 
     	tf.removeKeyListener(tf.getKeyListeners()[0]);
@@ -490,18 +505,33 @@ public class GUI extends OutputStream {
         		{
         			pause = false; //Set local variable pause to be false to let us know we need to stop the while loop
         			answer = tf.getText();
-        			tf.setText("");
+        			System.out.println("Pause (on press): " + pause);
         		}
         	}
     	};
+    	Pause pauseCommand = new Pause();
+    	tf.addKeyListener(pauseForInput);
     	timer = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+            	System.out.println("Pause: " + pause);
             	if(pause == false)
             		timer.stop();
             }
         });
+    	timer.setInitialDelay(1);
     	timer.start();
-    	
+    	synchronized(pauseCommand){
+            try{
+                System.out.println("Waiting for b to complete...");
+                pauseCommand.getKeyPress(tf, timer).wait();
+                answer = pauseCommand.getKeyPress(tf, timer);
+                
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+ 
+            System.out.println("Found answer: " + answer);
+        }
     	
     	KeyAdapter enterMain = new KeyAdapter() { //Put the old key adapter back in
         	@Override
@@ -513,6 +543,7 @@ public class GUI extends OutputStream {
         		}
         	}
         };
+        tf.removeKeyListener(tf.getKeyListeners()[0]);
         tf.addKeyListener(enterMain);
     	if(pause == false) 
     		return answer; //If we left the while loop the way I wanted, then return whatever the user wrote before pressing enter.
@@ -520,11 +551,8 @@ public class GUI extends OutputStream {
     }
     
     public static void main(String[] args) {
-        boolean quit = false;
         String nameLine = "Failed";
-        Scanner scanner = new Scanner(System.in);
         Character first = new Character();
-        String line = new String();
         Random random = new Random();
         int binary;
         first.calculateLevel();
