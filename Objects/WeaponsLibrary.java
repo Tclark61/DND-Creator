@@ -2,7 +2,7 @@
 //Author: Tyler Clark
 //Created in October 2019
 
-package dnd;
+package Objects;
 
 import java.util.ArrayList;
 import java.util.Scanner;
