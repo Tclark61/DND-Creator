@@ -2,7 +2,7 @@
 //Author: Tyler Clark
 //Designed in October 2019
 
-package dnd;
+package Objects;
 
 class Shield extends Weapon
 {
