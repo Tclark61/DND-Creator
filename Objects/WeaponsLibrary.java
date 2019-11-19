@@ -5,7 +5,7 @@
 package Objects;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+//import java.util.Scanner;
 import java.io.*;
 
 
@@ -253,7 +253,15 @@ public class WeaponsLibrary
                         line = null;
                     }
                 }
+                try {
+					in.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                
             }
+            
         }
         catch (FileNotFoundException ex)
         {
@@ -265,9 +273,7 @@ public class WeaponsLibrary
     
     public WeaponsLibrary(String file)
     {
-        String line = new String();
         this.weaponLib = parser(file, new ArrayList<Weapon>());
-        
     }
 
 

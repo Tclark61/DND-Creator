@@ -23,7 +23,7 @@ public class TextGame {
         DnDCharacter first = new DnDCharacter();
         String line = new String();
         Random random = new Random();
-        int binary;
+        //int binary;
         first.calculateLevel();
         try //Try to find the text file in, the 'try' and 'catch' test to see if the file is found
         {
@@ -45,7 +45,7 @@ public class TextGame {
             names[0] = "John";
         }
         names = nameLine.split(", "); //This splits the single line into multiple smaller strings (individual names) by splitting it at every comma followed by a space
-        binary = random.nextInt() % 2;
+        //binary = random.nextInt() % 2;
         //first.Gender
         //first.Current ?
         first.Name = names[random.nextInt(names.length)]; //random name

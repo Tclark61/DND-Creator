@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
@@ -15,6 +16,9 @@ import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.ScrollPaneConstants;
 import java.awt.SystemColor;
 
@@ -64,7 +68,7 @@ public class GUI extends OutputStream {
         GlobalVars.currentCharInRoster = 0;
         InitializeStates();
         
-        WeaponsLibrary library =  new WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
+       // WeaponsLibrary library =  new WeaponsLibrary("weapons.txt"); //Calls from weapons.txt for the list of possible weapons
         
         // startup GUI
         SwingUtilities.invokeLater(new Runnable() {
@@ -72,7 +76,19 @@ public class GUI extends OutputStream {
             public void run() {
                 JFrame frmDndCreator = new JFrame(GUI.class.getSimpleName());
                 frmDndCreator.setTitle("DND Creator");
-                frmDndCreator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frmDndCreator.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                frmDndCreator.addWindowListener(new WindowAdapter()
+                		{
+                			
+                			public void windowClosing(WindowEvent e)
+                			{
+                				int x = JOptionPane.showConfirmDialog(frmDndCreator,"Are you ready to quit the game?","", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                				if(x == JOptionPane.YES_OPTION)
+                				{
+                					e.getWindow().dispose();
+                				}
+                			}
+                		});
                 JTextArea ta = new JTextArea(24, 80);
                 ta.setBackground(SystemColor.menu);
                 ta.setEditable(false);
@@ -88,6 +104,7 @@ public class GUI extends OutputStream {
                 	}
                 };
                 tf.addKeyListener(enterMain);
+                
                 	
                 System.setOut(new PrintStream(new GUI(ta,tf)));
                 JScrollPane scrollPane = new JScrollPane(ta);
@@ -95,6 +112,7 @@ public class GUI extends OutputStream {
                 frmDndCreator.getContentPane().add(scrollPane);
                 frmDndCreator.getContentPane().add(tf, BorderLayout.SOUTH);
                 frmDndCreator.pack();
+                frmDndCreator.setLocationRelativeTo(null);
                 frmDndCreator.setVisible(true);
                 
                 System.out.println("Welcome to my text based DnDCharacter creator! Type 'HELP' for a list of commands.");

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class State {
 	
-	public State() { nextPossibleStates = new ArrayList<State>(); };
+	public State() { nextPossibleStates = new ArrayList<State>(); }
 	
 	public State(ArrayList<State> states)
 	{
@@ -28,6 +28,6 @@ public abstract class State {
 		}
 		
 		return this;
-	};
+	}
 	
 }

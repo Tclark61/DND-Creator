@@ -1,6 +1,6 @@
 package Objects;
 
-import java.util.Random;
+//import java.util.Random;
 
 import Statics.Constants;
 import creator.CharacterCreate;

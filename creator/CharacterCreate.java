@@ -3,15 +3,16 @@ package creator;
 //Author: Tyler Clark
 //Created in October 2019
 
-import java.io.BufferedReader;
+/* import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 import Objects.*;
-import Statics.*;
+import Statics.*; */
+
+import java.util.Random;
 
 // rename this to CharacterHelper?
 public class CharacterCreate
