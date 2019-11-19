@@ -1,14 +1,9 @@
 LIST OF THINGS (In order of first to last)
 
-- Add the quit button
-- Figure out a super elegant solution so that instead of scanning,
-the code stops and waits for the enter press then reads from the text line.
-Right now the code "crashes" if it hits a scanner.
 - Change the colors so that it looks prettier
 - Add class abilities
 - Add race support/modifiers
 - Make it so characters can equip weapons
-- Solve the health calculation glitch
 - Reformat the GUI if possible to allow more room for things
 - Make a start menu
 - Change the logo to be the dragon

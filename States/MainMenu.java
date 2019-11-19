@@ -111,7 +111,7 @@ public class MainMenu extends State {
                 }
                 else
                 {
-                    System.out.println("Unable to switch, please specify the name of DnDCharacter to switch to.");
+                    System.out.println("Unable to switch, please specify the name of Character to switch to.");
                 }
                 break;
             case "new":
@@ -123,13 +123,13 @@ public class MainMenu extends State {
                     
     		        GlobalVars.roster.add(newChar);
     		        GlobalVars.currentCharInRoster = GlobalVars.roster.indexOf(newChar);
-                    System.out.println("Would you like a pre-made DnDCharacter? If not, DnDCharacter will be blank. Y/N");
+                    System.out.println("Would you like a pre-made Character? If not, Character will be blank. Y/N");
                     nextPossibleStates.get(0).isNextState = true;
                     break;
                 }
                 else
 		        {
-		            System.out.println("Unable to understand prompt. Are you trying to say 'new DnDCharacter'?");
+		            System.out.println("Unable to understand prompt. Are you trying to say 'new Character'?");
 		        }
 		        break;
             case "classes":
@@ -175,25 +175,25 @@ public class MainMenu extends State {
                             System.out.println(player.Name + "'s experience is " + player.getExp());
                             break;
                         case "name":
-                            System.out.println("Current DnDCharacter name is " + player.Name + ".");
+                            System.out.println("Current Character name is " + player.Name + ".");
                             break;
                         case "str":
-                            System.out.println("Current DnDCharacter strength is " + player.Str + ".");
+                            System.out.println("Current Character strength is " + player.Str + ".");
                             break;
                         case "dex":
-                            System.out.println("Current DnDCharacter dexterity is " + player.Dex + ".");
+                            System.out.println("Current Character dexterity is " + player.Dex + ".");
                             break;
                         case "con":
-                            System.out.println("Current DnDCharacter constitution is " + player.Con + ".");
+                            System.out.println("Current Character constitution is " + player.Con + ".");
                             break; 
                         case "wis":
-                            System.out.println("Current DnDCharacter wisdom is " + player.Wis + ".");
+                            System.out.println("Current Character wisdom is " + player.Wis + ".");
                             break;
                         case "intl":
-                            System.out.println("Current DnDCharacter intelligence is " + player.Intl + ".");
+                            System.out.println("Current Character intelligence is " + player.Intl + ".");
                             break; 
                         case "cha":
-                            System.out.println("Current DnDCharacter charisma is " + player.Cha + ".");
+                            System.out.println("Current Character charisma is " + player.Cha + ".");
                             break;                            
                         default:
                             System.out.println("Unable to understand variable for get command.\n" +
@@ -250,31 +250,31 @@ public class MainMenu extends State {
                             break;
                         case "name":
                             player.Name = words[2]; //Use the third word as the name of the DnDCharacter
-                            System.out.println("Current DnDCharacter name set to " + player.Name + ".");
+                            System.out.println("Current Character name set to " + player.Name + ".");
                             break;
                         case "str":
                             player.Str = Integer.parseInt(words[2]);
-                            System.out.println("Current DnDCharacter strength set to " + player.Str + ".");
+                            System.out.println("Current Character strength set to " + player.Str + ".");
                             break;
                         case "dex":
                             player.Dex = Integer.parseInt(words[2]);
-                            System.out.println("Current DnDCharacter dexterity set to " + player.Dex + ".");
+                            System.out.println("Current Character dexterity set to " + player.Dex + ".");
                             break;
                         case "con":
                             player.Con = Integer.parseInt(words[2]);
-                            System.out.println("Current DnDCharacter constitution set to " + player.Con + ".");
+                            System.out.println("Current Character constitution set to " + player.Con + ".");
                             break; 
                         case "wis":
                             player.Wis = Integer.parseInt(words[2]);
-                            System.out.println("Current DnDCharacter wisdom set to " + player.Wis + ".");
+                            System.out.println("Current Character wisdom set to " + player.Wis + ".");
                             break;
                         case "intl":
                             player.Intl = Integer.parseInt(words[2]);
-                            System.out.println("Current DnDCharacter intelligence set to " + player.Intl + ".");
+                            System.out.println("Current Character intelligence set to " + player.Intl + ".");
                             break; 
                         case "cha":
                             player.Cha = Integer.parseInt(words[2]);
-                            System.out.println("Current DnDCharacter charisma set to " + player.Cha + ".");
+                            System.out.println("Current Character charisma set to " + player.Cha + ".");
                             break;                            
                         default:
                             System.out.println("Unable to understand variable for set command.\n" +

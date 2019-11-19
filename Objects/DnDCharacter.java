@@ -245,7 +245,8 @@ public class DnDCharacter
                 Class = Constants.classes[i];
                 this.maxHealth = 0;
                 changeHealth(level - 1);
-                this.currentHealth = maxHealth;
+                this.currentHealth = maxHealth + Constants.healthDice[i];
+                break;
             }
         }
         if(!foundClass)

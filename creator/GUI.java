@@ -115,7 +115,7 @@ public class GUI extends OutputStream {
                 frmDndCreator.setLocationRelativeTo(null);
                 frmDndCreator.setVisible(true);
                 
-                System.out.println("Welcome to my text based DnDCharacter creator! Type 'HELP' for a list of commands.");
+                System.out.println("Welcome to my text based Character Creator! Type 'HELP' for a list of commands.");
                 Timer t = new Timer(1000, new ActionListener() {
 
                     @Override
